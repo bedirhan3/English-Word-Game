@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ünite 5 kelimeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* position: relative; */
+
+        }
+
+        #kelime-container,
+        #kelime-container2 {
+            background-color: #16b766;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        #kelime,
+        #kelime2 {
+            color: white;
+            width: 250px;
+            text-align: center;
+
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+        }
+
+        button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: large;
+            box-shadow: 0 10px 20px rgb(27, 28, 27);
+
+
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h3 {
+            color: #c8ff00;
+            background-color: rgb(43, 110, 110);
+            border-radius: 5px;
+            width: 125px;
+            text-align: center;
+            margin-left: 125px;
+            position: absolute;
+            top: 138px;
+            right: 55px;
+        }
+
+        h4 {
+            background-color: #393e28;
+            width: 230px;
+            padding: 15px;
+            border-radius: 25px;
+            color: #c8ff00;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        .numbers {
+
+            background-color: #c8ff00;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+
+
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        #scors {
+            background-color: rgb(239, 16, 16);
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            background-color: bisque;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .skor {
+            margin-left: 10px;
+            color: aqua;
+            background-color: rgb(78, 49, 7);
+            padding: 5px 10px;
+            border-radius: 5px;
+
+        }
+
+        #div {
+            position: relative;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #393e28;">
+
+    <div id="div">
+        <h3 style=" z-index: 1;
+    background-color:burlywood;
+    color:blue;
+    margin-left: 0px;
+        top: 0px;
+        right: 260px;
+
+    " id="anaSayfa" onclick="anaSayfa()">Ana Sayfa</h3>
+        <div class="container">
+
+            <div id="kelime-container">
+                <h1 id="kelime">Apple</h1>
+                <h3>kalan <span>75</span></h3>
+            </div>
+            <div class="options">
+                <button onclick="secenek(0)">Apple</button>
+                <button onclick="secenek(1)">Banana</button>
+                <button onclick="secenek(2)">Orange</button>
+                <button onclick="secenek(3)">Grape</button>
+                <button onclick="secenek(4)">Pineapple</button>
+                <button onclick="secenek(5)">Watermelon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="kelime-container2">
+            <h1 id="kelime2" style="font-size: 25px;">Tebrikler tüm kelimeleri başarıyla bildiniz</h1>
+        </div>
+        <h4>Toplam 35 hata yaptınız</h4>
+        <div style="background-color:aqua; margin-left: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 19px;      
+        width: 125px;  
+        " onclick="replay()">Yeniden Oyna</div>
+        <div id="scors">
+            <table>
+                <h2>En Yüksek Skorlar</h2>
+                <tr>
+                    <td>
+                        <a class="numbers">1</a> <a class="skor">3 Hata</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="numbers">2</a> <a class="skor">Yetersiz Oyun</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a class="numbers">3</a> <a class="skor">3 Hata</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function anaSayfa() {
+            window.location.href = "index.html";
+        }
+        console.log(Object.values(localStorage));
+        console.log(Object.keys(localStorage));
+        let correctSound = new Audio("media/success.mp3");
+        document.getElementsByClassName("container")[1].style.display = "none";
+        let falseSound = new Audio("media/error.mp3");
+        falseSound.volume = 0.1
+        let data =
+            [
+                { "key": "ambulance", "value": "ambulans" },
+                { "key": "basic", "value": "temel" },
+                { "key": "bee", "value": "arı" },
+                { "key": "bleed", "value": "kanamak" },
+                { "key": "cut", "value": "kesmek" },
+                { "key": "danger", "value": "tehlike" },
+                { "key": "faint", "value": "bayılmak" },
+                { "key": "first aid", "value": "ilk yardım" },
+                { "key": "help", "value": "yardım" },
+                { "key": "injured", "value": "yaralı" },
+                { "key": "life", "value": "hayat" },
+                { "key": "need", "value": "ihtiyaç" },
+                { "key": "quickly", "value": "hızlı bir şekilde" },
+                { "key": "rash", "value": "döküntü" },
+                { "key": "rule", "value": "kural" },
+                { "key": "save", "value": "kurtarmak" },
+                { "key": "sting", "value": "sokmak" },
+                { "key": "train", "value": "eğitmek" },
+                { "key": "allergic", "value": "alerjik" },
+                { "key": "annoy", "value": "rahatsız etmek" },
+                { "key": "avoid", "value": "kaçınmak" },
+                { "key": "breathless", "value": "nefessiz" },
+                { "key": "burn", "value": "yanmak" },
+                { "key": "buzz", "value": "vızıltı" },
+                { "key": "catch", "value": "yakalamak" },
+                { "key": "come round", "value": "kendine gelmek" },
+                { "key": "crash", "value": "çarpışmak" },
+                { "key": "cream", "value": "krem" },
+                { "key": "deep", "value": "derin" },
+                { "key": "dizzy", "value": "baş dönmesi" },
+                { "key": "fly (noun)", "value": "sinek" },
+                { "key": "fly (verb)", "value": "uçmak" },
+                { "key": "kill", "value": "öldürmek" },
+                { "key": "lose control", "value": "kontrolü kaybetmek" },
+                { "key": "pan", "value": "tencere" },
+                { "key": "plaster", "value": "yara bandı" },
+                { "key": "press", "value": "bastırmak" },
+                { "key": "safe", "value": "güvenli" },
+                { "key": "step", "value": "adım" },
+                { "key": "sting (verb)", "value": "batmak (arı, böcek tarafından)" },
+                { "key": "strawberry", "value": "çilek" },
+                { "key": "swollen", "value": "şişmiş" },
+                { "key": "wave", "value": "dalga" },
+                { "key": "wreck", "value": "enkaz" },
+                { "key": "ache", "value": "ağrı" },
+                { "key": "allergy", "value": "alerji" },
+                { "key": "bacteria", "value": "bakteri" },
+                { "key": "bad", "value": "kötü" },
+                { "key": "be sick", "value": "kusmak" },
+                { "key": "cold", "value": "soğuk, üşümek" },
+                { "key": "cough", "value": "öksürmek" },
+                { "key": "dirt", "value": "kir" },
+                { "key": "feel sick", "value": "midesi bulanmak" },
+                { "key": "fever", "value": "ateş" },
+                { "key": "headache", "value": "baş ağrısı" },
+                { "key": "hurt", "value": "acıtmak, incitmek" },
+                { "key": "illness", "value": "hastalık" },
+                { "key": "sneeze", "value": "hapşırmak" },
+                { "key": "sore", "value": "yara, ağrılı" },
+                { "key": "throat", "value": "boğaz" },
+                { "key": "toothache", "value": "diş ağrısı" },
+                { "key": "advanced", "value": "ileri düzey" },
+                { "key": "challenge", "value": "zorluk" },
+                { "key": "deadly", "value": "ölümcül" },
+                { "key": "dramatically", "value": "dramatik bir şekilde" },
+                { "key": "epidemic", "value": "salgın" },
+                { "key": "evidence", "value": "kanıt" },
+                { "key": "expert", "value": "uzman" },
+                { "key": "farm", "value": "çiftlik" },
+                { "key": "fight off", "value": "savuşturmak" },
+                { "key": "find out", "value": "öğrenmek" },
+                { "key": "hospital", "value": "hastane" },
+                { "key": "hygiene", "value": "hijyen" },
+                { "key": "immune system", "value": "bağışıklık sistemi" },
+                { "key": "medicine", "value": "ilaç" },
+                { "key": "mud", "value": "çamur" },
+                { "key": "muddy", "value": "çamurlu" },
+                { "key": "nut", "value": "kuruyemiş" },
+                { "key": "on the right track", "value": "doğru yolda" },
+                { "key": "oversensitive", "value": "aşırı duyarlı" },
+                { "key": "play", "value": "oynamak" },
+                { "key": "predict", "value": "tahmin etmek" },
+                { "key": "reduce", "value": "azaltmak" },
+                { "key": "strong", "value": "güçlü" },
+                { "key": "suffer from", "value": "muzdarip olmak" },
+                { "key": "symptom", "value": "belirti" },
+                { "key": "top", "value": "en üst" },
+                { "key": "treatment", "value": "tedavi" },
+                { "key": "wash", "value": "yıkamak" },
+                { "key": "way", "value": "yol, şekil" },
+                { "key": "email", "value": "e-posta" },
+                { "key": "enter", "value": "girmek" },
+                { "key": "finalist", "value": "finalist" },
+                { "key": "find", "value": "bulmak" },
+                { "key": "forget", "value": "unutmak" },
+                { "key": "insurance", "value": "sigorta" },
+                { "key": "knock", "value": "vurmak" },
+                { "key": "mishap", "value": "talihsizlik" },
+                { "key": "nothing", "value": "hiçbir şey" },
+                { "key": "push", "value": "itmek" },
+                { "key": "run", "value": "koşmak" },
+                { "key": "swing", "value": "sallanmak" },
+                { "key": "travel towards", "value": "yolculuk yapmak" },
+                { "key": "choose", "value": "seçmek" },
+                { "key": "unlucky", "value": "şanssız" },
+                { "key": "medication", "value": "ilaç tedavisi" },
+                { "key": "alive", "value": "canlı" },
+                { "key": "attack", "value": "saldırı" },
+                { "key": "below", "value": "altında" },
+                { "key": "bull", "value": "boğa" },
+                { "key": "calm", "value": "sakin" },
+                { "key": "crash (noun)", "value": "çarpışma" },
+                { "key": "disappear", "value": "kaybolmak" },
+                { "key": "eventually", "value": "sonunda" },
+                { "key": "hippo", "value": "hipopotam" },
+                { "key": "in a bad way", "value": "kötü durumda" },
+                { "key": "lead", "value": "öncülük etmek" },
+                { "key": "operation", "value": "ameliyat" },
+                { "key": "positive", "value": "olumlu" },
+                { "key": "pull", "value": "çekmek" },
+                { "key": "road trip", "value": "yolculuk" },
+                { "key": "safari", "value": "safari" },
+                { "key": "shore", "value": "sahil" },
+                { "key": "silence", "value": "sessizlik" },
+                { "key": "slowly", "value": "yavaşça" },
+                { "key": "suddenly", "value": "aniden" },
+                { "key": "terrifying", "value": "korkunç" },
+                { "key": "underwater", "value": "su altı" },
+                { "key": "wild", "value": "vahşi" },
+                { "key": "drain", "value": "boşaltmak" },
+                { "key": "escape", "value": "kaçmak" },
+                { "key": "fire brigade", "value": "itfaiye" },
+                { "key": "free", "value": "ücretsiz" },
+                { "key": "pavement", "value": "kaldırım" },
+                { "key": "reach", "value": "ulaşmak" },
+                { "key": "bury", "value": "gömmek" },
+                { "key": "hide", "value": "saklanmak" },
+                { "key": "sand", "value": "kum" },
+                { "key": "steal", "value": "çalmak" },
+                { "key": "swim", "value": "yüzmek" },
+                { "key": "afraid", "value": "korkmuş" },
+                { "key": "drop", "value": "düşmek" },
+                { "key": "go out", "value": "dışarı çıkmak" },
+                { "key": "meet", "value": "buluşmak" },
+                { "key": "MP3 player", "value": "MP3 çalar" },
+                { "key": "push", "value": "zorlamak" },
+                { "key": "ready", "value": "hazır" },
+                { "key": "run out", "value": "tükenmek" },
+                { "key": "run over", "value": "üzerinden geçmek" },
+                { "key": "slip", "value": "kaymak" }
+            ]
+
+
+
+        let data2 =
+            [
+                { "key": "ambulance", "value": "ambulans" },
+                { "key": "basic", "value": "temel" },
+                { "key": "bee", "value": "arı" },
+                { "key": "bleed", "value": "kanamak" },
+                { "key": "cut", "value": "kesmek" },
+                { "key": "danger", "value": "tehlike" },
+                { "key": "faint", "value": "bayılmak" },
+                { "key": "first aid", "value": "ilk yardım" },
+                { "key": "help", "value": "yardım" },
+                { "key": "injured", "value": "yaralı" },
+                { "key": "life", "value": "hayat" },
+                { "key": "need", "value": "ihtiyaç" },
+                { "key": "quickly", "value": "hızlı bir şekilde" },
+                { "key": "rash", "value": "döküntü" },
+                { "key": "rule", "value": "kural" },
+                { "key": "save", "value": "kurtarmak" },
+                { "key": "sting", "value": "sokmak" },
+                { "key": "train", "value": "eğitmek" },
+                { "key": "allergic", "value": "alerjik" },
+                { "key": "annoy", "value": "rahatsız etmek" },
+                { "key": "avoid", "value": "kaçınmak" },
+                { "key": "breathless", "value": "nefessiz" },
+                { "key": "burn", "value": "yanmak" },
+                { "key": "buzz", "value": "vızıltı" },
+                { "key": "catch", "value": "yakalamak" },
+                { "key": "come round", "value": "kendine gelmek" },
+                { "key": "crash", "value": "çarpışmak" },
+                { "key": "cream", "value": "krem" },
+                { "key": "deep", "value": "derin" },
+                { "key": "dizzy", "value": "baş dönmesi" },
+                { "key": "fly (noun)", "value": "sinek" },
+                { "key": "fly (verb)", "value": "uçmak" },
+                { "key": "kill", "value": "öldürmek" },
+                { "key": "lose control", "value": "kontrolü kaybetmek" },
+                { "key": "pan", "value": "tencere" },
+                { "key": "plaster", "value": "yara bandı" },
+                { "key": "press", "value": "bastırmak" },
+                { "key": "safe", "value": "güvenli" },
+                { "key": "step", "value": "adım" },
+                { "key": "sting (verb)", "value": "batmak (arı, böcek tarafından)" },
+                { "key": "strawberry", "value": "çilek" },
+                { "key": "swollen", "value": "şişmiş" },
+                { "key": "wave", "value": "dalga" },
+                { "key": "wreck", "value": "enkaz" },
+                { "key": "ache", "value": "ağrı" },
+                { "key": "allergy", "value": "alerji" },
+                { "key": "bacteria", "value": "bakteri" },
+                { "key": "bad", "value": "kötü" },
+                { "key": "be sick", "value": "kusmak" },
+                { "key": "cold", "value": "soğuk, üşümek" },
+                { "key": "cough", "value": "öksürmek" },
+                { "key": "dirt", "value": "kir" },
+                { "key": "feel sick", "value": "midesi bulanmak" },
+                { "key": "fever", "value": "ateş" },
+                { "key": "headache", "value": "baş ağrısı" },
+                { "key": "hurt", "value": "acıtmak, incitmek" },
+                { "key": "illness", "value": "hastalık" },
+                { "key": "sneeze", "value": "hapşırmak" },
+                { "key": "sore", "value": "yara, ağrılı" },
+                { "key": "throat", "value": "boğaz" },
+                { "key": "toothache", "value": "diş ağrısı" },
+                { "key": "advanced", "value": "ileri düzey" },
+                { "key": "challenge", "value": "zorluk" },
+                { "key": "deadly", "value": "ölümcül" },
+                { "key": "dramatically", "value": "dramatik bir şekilde" },
+                { "key": "epidemic", "value": "salgın" },
+                { "key": "evidence", "value": "kanıt" },
+                { "key": "expert", "value": "uzman" },
+                { "key": "farm", "value": "çiftlik" },
+                { "key": "fight off", "value": "savuşturmak" },
+                { "key": "find out", "value": "öğrenmek" },
+                { "key": "hospital", "value": "hastane" },
+                { "key": "hygiene", "value": "hijyen" },
+                { "key": "immune system", "value": "bağışıklık sistemi" },
+                { "key": "medicine", "value": "ilaç" },
+                { "key": "mud", "value": "çamur" },
+                { "key": "muddy", "value": "çamurlu" },
+                { "key": "nut", "value": "kuruyemiş" },
+                { "key": "on the right track", "value": "doğru yolda" },
+                { "key": "oversensitive", "value": "aşırı duyarlı" },
+                { "key": "play", "value": "oynamak" },
+                { "key": "predict", "value": "tahmin etmek" },
+                { "key": "reduce", "value": "azaltmak" },
+                { "key": "strong", "value": "güçlü" },
+                { "key": "suffer from", "value": "muzdarip olmak" },
+                { "key": "symptom", "value": "belirti" },
+                { "key": "top", "value": "en üst" },
+                { "key": "treatment", "value": "tedavi" },
+                { "key": "wash", "value": "yıkamak" },
+                { "key": "way", "value": "yol, şekil" },
+                { "key": "email", "value": "e-posta" },
+                { "key": "enter", "value": "girmek" },
+                { "key": "finalist", "value": "finalist" },
+                { "key": "find", "value": "bulmak" },
+                { "key": "forget", "value": "unutmak" },
+                { "key": "insurance", "value": "sigorta" },
+                { "key": "knock", "value": "vurmak" },
+                { "key": "mishap", "value": "talihsizlik" },
+                { "key": "nothing", "value": "hiçbir şey" },
+                { "key": "push", "value": "itmek" },
+                { "key": "run", "value": "koşmak" },
+                { "key": "swing", "value": "sallanmak" },
+                { "key": "travel towards", "value": "yolculuk yapmak" },
+                { "key": "choose", "value": "seçmek" },
+                { "key": "unlucky", "value": "şanssız" },
+                { "key": "medication", "value": "ilaç tedavisi" },
+                { "key": "alive", "value": "canlı" },
+                { "key": "attack", "value": "saldırı" },
+                { "key": "below", "value": "altında" },
+                { "key": "bull", "value": "boğa" },
+                { "key": "calm", "value": "sakin" },
+                { "key": "crash (noun)", "value": "çarpışma" },
+                { "key": "disappear", "value": "kaybolmak" },
+                { "key": "eventually", "value": "sonunda" },
+                { "key": "hippo", "value": "hipopotam" },
+                { "key": "in a bad way", "value": "kötü durumda" },
+                { "key": "lead", "value": "öncülük etmek" },
+                { "key": "operation", "value": "ameliyat" },
+                { "key": "positive", "value": "olumlu" },
+                { "key": "pull", "value": "çekmek" },
+                { "key": "road trip", "value": "yolculuk" },
+                { "key": "safari", "value": "safari" },
+                { "key": "shore", "value": "sahil" },
+                { "key": "silence", "value": "sessizlik" },
+                { "key": "slowly", "value": "yavaşça" },
+                { "key": "suddenly", "value": "aniden" },
+                { "key": "terrifying", "value": "korkunç" },
+                { "key": "underwater", "value": "su altı" },
+                { "key": "wild", "value": "vahşi" },
+                { "key": "drain", "value": "boşaltmak" },
+                { "key": "escape", "value": "kaçmak" },
+                { "key": "fire brigade", "value": "itfaiye" },
+                { "key": "free", "value": "ücretsiz" },
+                { "key": "pavement", "value": "kaldırım" },
+                { "key": "reach", "value": "ulaşmak" },
+                { "key": "bury", "value": "gömmek" },
+                { "key": "hide", "value": "saklanmak" },
+                { "key": "sand", "value": "kum" },
+                { "key": "steal", "value": "çalmak" },
+                { "key": "swim", "value": "yüzmek" },
+                { "key": "afraid", "value": "korkmuş" },
+                { "key": "drop", "value": "düşmek" },
+                { "key": "go out", "value": "dışarı çıkmak" },
+                { "key": "meet", "value": "buluşmak" },
+                { "key": "MP3 player", "value": "MP3 çalar" },
+                { "key": "push", "value": "zorlamak" },
+                { "key": "ready", "value": "hazır" },
+                { "key": "run out", "value": "tükenmek" },
+                { "key": "run over", "value": "üzerinden geçmek" },
+                { "key": "slip", "value": "kaymak" }
+            ]
+
+
+        let yanlislar = [];
+        let toplamHata = 0;
+
+
+
+        let butonRandomKelime = 0;
+        let buton = document.querySelectorAll("button");
+        let kelime = document.querySelector("#kelime");
+        let skors = document.getElementsByClassName("skor");
+
+        document.querySelector("span").innerText = data.length;
+        let randomKelime = Math.floor(Math.random() * data.length);
+        let randomNo = Math.floor(Math.random() * 6);
+        kelime.innerHTML = data[randomKelime].key;
+        buton[randomNo].innerText = data[randomKelime].value;
+        for (let i = 0; i < buton.length; i++) {
+            if (i == randomNo) {
+                continue;
+            }
+            butonRandomKelime = Math.floor(Math.random() * data2.length);
+            buton[i].innerText = data2[butonRandomKelime].value;
+        }
+
+        function secenek(no) {
+
+            correctSound.currentTime = 0.0;
+            falseSound.currentTime = 0.0;
+            if (buton[no].innerText == buton[randomNo].innerText) {
+                data.splice(randomKelime, 1)
+
+                if (data.length == 0) {
+                    if (data.length + yanlislar.length == 0) {
+                        document.getElementById("div").style.display = "none";
+                        document.getElementsByClassName("container")[1].style.display = "inline";
+                        document.querySelector("h4").innerText = "Toplam " + toplamHata + " hata yaptınız";
+                        let lokalSkorlar = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            if (Object.keys(localStorage)[i].includes("a2Unite10")) {
+                                lokalSkorlar.push(Number(Object.values(localStorage)[i]))
+                            }
+                        }
+                        localStorage.setItem("a2Unite10No" + lokalSkorlar.length, toplamHata);
+                        lokalSkorlar.push(localStorage.getItem("a2Unite10No" + lokalSkorlar.length))
+                        toplamHata = 0;
+                        if (lokalSkorlar.length == 1) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = "Yetersiz Oyun";
+                            skors[0].innerText = lokalSkorlar[0] + " Hata"
+                        }
+                        else if (lokalSkorlar.length == 2) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = Math.max(...lokalSkorlar) + " Hata";
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                        }
+                        else {
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            let index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[1].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[2].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar = [];
+                        }
+                    }
+                    else {
+                        data = [];
+                        for (let i = 0; i < yanlislar.length; i++) {
+                            data.push({ key: yanlislar[i].key, value: yanlislar[i].value })
+                        }
+
+                        yanlislar = [];
+                        console.log(data);
+                    }
+
+
+                }
+                buton.forEach(element => {
+                    element.style.backgroundColor = "#c8ff00";
+                });
+                falseSound.pause();
+
+                correctSound.play();
+                randomKelime = Math.floor(Math.random() * data.length);
+                randomNo = Math.floor(Math.random() * 6);
+                kelime.innerHTML = data[randomKelime].key;
+                buton[randomNo].innerText = data[randomKelime].value;
+
+                for (let i = 0; i < buton.length; i++) {
+                    if (i == randomNo) {
+                        continue;
+                    }
+                    butonRandomKelime = Math.floor(Math.random() * data2.length);
+                    buton[i].innerText = data2[butonRandomKelime].value;
+                }
+                document.querySelector("span").innerText = data.length + yanlislar.length;
+
+
+            }
+            else {
+                toplamHata++;
+
+                correctSound.pause();
+                falseSound.play();
+                buton[no].style.backgroundColor = "red";
+                if (yanlislar.length == 0 || yanlislar[yanlislar.length - 1].key != data[randomKelime].key) {
+                    yanlislar.push({ key: data[randomKelime].key, value: data[randomKelime].value });
+                }
+
+            }
+
+        }
+
+
+        function replay() {
+            data =
+                [
+                    { "key": "ambulance", "value": "ambulans" },
+                    { "key": "basic", "value": "temel" },
+                    { "key": "bee", "value": "arı" },
+                    { "key": "bleed", "value": "kanamak" },
+                    { "key": "cut", "value": "kesmek" },
+                    { "key": "danger", "value": "tehlike" },
+                    { "key": "faint", "value": "bayılmak" },
+                    { "key": "first aid", "value": "ilk yardım" },
+                    { "key": "help", "value": "yardım" },
+                    { "key": "injured", "value": "yaralı" },
+                    { "key": "life", "value": "hayat" },
+                    { "key": "need", "value": "ihtiyaç" },
+                    { "key": "quickly", "value": "hızlı bir şekilde" },
+                    { "key": "rash", "value": "döküntü" },
+                    { "key": "rule", "value": "kural" },
+                    { "key": "save", "value": "kurtarmak" },
+                    { "key": "sting", "value": "sokmak" },
+                    { "key": "train", "value": "eğitmek" },
+                    { "key": "allergic", "value": "alerjik" },
+                    { "key": "annoy", "value": "rahatsız etmek" },
+                    { "key": "avoid", "value": "kaçınmak" },
+                    { "key": "breathless", "value": "nefessiz" },
+                    { "key": "burn", "value": "yanmak" },
+                    { "key": "buzz", "value": "vızıltı" },
+                    { "key": "catch", "value": "yakalamak" },
+                    { "key": "come round", "value": "kendine gelmek" },
+                    { "key": "crash", "value": "çarpışmak" },
+                    { "key": "cream", "value": "krem" },
+                    { "key": "deep", "value": "derin" },
+                    { "key": "dizzy", "value": "baş dönmesi" },
+                    { "key": "fly (noun)", "value": "sinek" },
+                    { "key": "fly (verb)", "value": "uçmak" },
+                    { "key": "kill", "value": "öldürmek" },
+                    { "key": "lose control", "value": "kontrolü kaybetmek" },
+                    { "key": "pan", "value": "tencere" },
+                    { "key": "plaster", "value": "yara bandı" },
+                    { "key": "press", "value": "bastırmak" },
+                    { "key": "safe", "value": "güvenli" },
+                    { "key": "step", "value": "adım" },
+                    { "key": "sting (verb)", "value": "batmak (arı, böcek tarafından)" },
+                    { "key": "strawberry", "value": "çilek" },
+                    { "key": "swollen", "value": "şişmiş" },
+                    { "key": "wave", "value": "dalga" },
+                    { "key": "wreck", "value": "enkaz" },
+                    { "key": "ache", "value": "ağrı" },
+                    { "key": "allergy", "value": "alerji" },
+                    { "key": "bacteria", "value": "bakteri" },
+                    { "key": "bad", "value": "kötü" },
+                    { "key": "be sick", "value": "kusmak" },
+                    { "key": "cold", "value": "soğuk, üşümek" },
+                    { "key": "cough", "value": "öksürmek" },
+                    { "key": "dirt", "value": "kir" },
+                    { "key": "feel sick", "value": "midesi bulanmak" },
+                    { "key": "fever", "value": "ateş" },
+                    { "key": "headache", "value": "baş ağrısı" },
+                    { "key": "hurt", "value": "acıtmak, incitmek" },
+                    { "key": "illness", "value": "hastalık" },
+                    { "key": "sneeze", "value": "hapşırmak" },
+                    { "key": "sore", "value": "yara, ağrılı" },
+                    { "key": "throat", "value": "boğaz" },
+                    { "key": "toothache", "value": "diş ağrısı" },
+                    { "key": "advanced", "value": "ileri düzey" },
+                    { "key": "challenge", "value": "zorluk" },
+                    { "key": "deadly", "value": "ölümcül" },
+                    { "key": "dramatically", "value": "dramatik bir şekilde" },
+                    { "key": "epidemic", "value": "salgın" },
+                    { "key": "evidence", "value": "kanıt" },
+                    { "key": "expert", "value": "uzman" },
+                    { "key": "farm", "value": "çiftlik" },
+                    { "key": "fight off", "value": "savuşturmak" },
+                    { "key": "find out", "value": "öğrenmek" },
+                    { "key": "hospital", "value": "hastane" },
+                    { "key": "hygiene", "value": "hijyen" },
+                    { "key": "immune system", "value": "bağışıklık sistemi" },
+                    { "key": "medicine", "value": "ilaç" },
+                    { "key": "mud", "value": "çamur" },
+                    { "key": "muddy", "value": "çamurlu" },
+                    { "key": "nut", "value": "kuruyemiş" },
+                    { "key": "on the right track", "value": "doğru yolda" },
+                    { "key": "oversensitive", "value": "aşırı duyarlı" },
+                    { "key": "play", "value": "oynamak" },
+                    { "key": "predict", "value": "tahmin etmek" },
+                    { "key": "reduce", "value": "azaltmak" },
+                    { "key": "strong", "value": "güçlü" },
+                    { "key": "suffer from", "value": "muzdarip olmak" },
+                    { "key": "symptom", "value": "belirti" },
+                    { "key": "top", "value": "en üst" },
+                    { "key": "treatment", "value": "tedavi" },
+                    { "key": "wash", "value": "yıkamak" },
+                    { "key": "way", "value": "yol, şekil" },
+                    { "key": "email", "value": "e-posta" },
+                    { "key": "enter", "value": "girmek" },
+                    { "key": "finalist", "value": "finalist" },
+                    { "key": "find", "value": "bulmak" },
+                    { "key": "forget", "value": "unutmak" },
+                    { "key": "insurance", "value": "sigorta" },
+                    { "key": "knock", "value": "vurmak" },
+                    { "key": "mishap", "value": "talihsizlik" },
+                    { "key": "nothing", "value": "hiçbir şey" },
+                    { "key": "push", "value": "itmek" },
+                    { "key": "run", "value": "koşmak" },
+                    { "key": "swing", "value": "sallanmak" },
+                    { "key": "travel towards", "value": "yolculuk yapmak" },
+                    { "key": "choose", "value": "seçmek" },
+                    { "key": "unlucky", "value": "şanssız" },
+                    { "key": "medication", "value": "ilaç tedavisi" },
+                    { "key": "alive", "value": "canlı" },
+                    { "key": "attack", "value": "saldırı" },
+                    { "key": "below", "value": "altında" },
+                    { "key": "bull", "value": "boğa" },
+                    { "key": "calm", "value": "sakin" },
+                    { "key": "crash (noun)", "value": "çarpışma" },
+                    { "key": "disappear", "value": "kaybolmak" },
+                    { "key": "eventually", "value": "sonunda" },
+                    { "key": "hippo", "value": "hipopotam" },
+                    { "key": "in a bad way", "value": "kötü durumda" },
+                    { "key": "lead", "value": "öncülük etmek" },
+                    { "key": "operation", "value": "ameliyat" },
+                    { "key": "positive", "value": "olumlu" },
+                    { "key": "pull", "value": "çekmek" },
+                    { "key": "road trip", "value": "yolculuk" },
+                    { "key": "safari", "value": "safari" },
+                    { "key": "shore", "value": "sahil" },
+                    { "key": "silence", "value": "sessizlik" },
+                    { "key": "slowly", "value": "yavaşça" },
+                    { "key": "suddenly", "value": "aniden" },
+                    { "key": "terrifying", "value": "korkunç" },
+                    { "key": "underwater", "value": "su altı" },
+                    { "key": "wild", "value": "vahşi" },
+                    { "key": "drain", "value": "boşaltmak" },
+                    { "key": "escape", "value": "kaçmak" },
+                    { "key": "fire brigade", "value": "itfaiye" },
+                    { "key": "free", "value": "ücretsiz" },
+                    { "key": "pavement", "value": "kaldırım" },
+                    { "key": "reach", "value": "ulaşmak" },
+                    { "key": "bury", "value": "gömmek" },
+                    { "key": "hide", "value": "saklanmak" },
+                    { "key": "sand", "value": "kum" },
+                    { "key": "steal", "value": "çalmak" },
+                    { "key": "swim", "value": "yüzmek" },
+                    { "key": "afraid", "value": "korkmuş" },
+                    { "key": "drop", "value": "düşmek" },
+                    { "key": "go out", "value": "dışarı çıkmak" },
+                    { "key": "meet", "value": "buluşmak" },
+                    { "key": "MP3 player", "value": "MP3 çalar" },
+                    { "key": "push", "value": "zorlamak" },
+                    { "key": "ready", "value": "hazır" },
+                    { "key": "run out", "value": "tükenmek" },
+                    { "key": "run over", "value": "üzerinden geçmek" },
+                    { "key": "slip", "value": "kaymak" }
+                ]
+
+
+
+
+
+            document.getElementById("div").style.display = "inline";
+            document.getElementsByClassName("container")[1].style.display = "none";
+            randomKelime = Math.floor(Math.random() * data.length);
+            randomNo = Math.floor(Math.random() * 6);
+            kelime.innerHTML = data[randomKelime].key;
+            buton[randomNo].innerText = data[randomKelime].value;
+
+            for (let i = 0; i < buton.length; i++) {
+                if (i == randomNo) {
+                    continue;
+                }
+                butonRandomKelime = Math.floor(Math.random() * data2.length);
+                buton[i].innerText = data2[butonRandomKelime].value;
+            }
+            document.querySelector("span").innerText = data.length + yanlislar.length;
+            secenek();
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

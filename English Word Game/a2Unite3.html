@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ünite 5 kelimeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* position: relative; */
+
+        }
+
+        #kelime-container,
+        #kelime-container2 {
+            background-color: #16b766;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        #kelime,
+        #kelime2 {
+            color: white;
+            width: 250px;
+            text-align: center;
+
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+        }
+
+        button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: large;
+            box-shadow: 0 10px 20px rgb(27, 28, 27);
+
+
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h3 {
+            color: #c8ff00;
+            background-color: rgb(43, 110, 110);
+            border-radius: 5px;
+            width: 125px;
+            text-align: center;
+            margin-left: 125px;
+            position: absolute;
+            top: 138px;
+            right: 55px;
+        }
+
+        h4 {
+            background-color: #393e28;
+            width: 230px;
+            padding: 15px;
+            border-radius: 25px;
+            color: #c8ff00;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        .numbers {
+
+            background-color: #c8ff00;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+
+
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        #scors {
+            background-color: rgb(239, 16, 16);
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            background-color: bisque;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .skor {
+            margin-left: 10px;
+            color: aqua;
+            background-color: rgb(78, 49, 7);
+            padding: 5px 10px;
+            border-radius: 5px;
+
+        }
+
+        #div {
+            position: relative;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #393e28;">
+
+    <div id="div">
+        <h3 style=" z-index: 1;
+    background-color:burlywood;
+    color:blue;
+    margin-left: 0px;
+        top: 0px;
+        right: 260px;
+
+    " id="anaSayfa" onclick="anaSayfa()">Ana Sayfa</h3>
+        <div class="container">
+
+            <div id="kelime-container">
+                <h1 id="kelime">Apple</h1>
+                <h3>kalan <span>75</span></h3>
+            </div>
+            <div class="options">
+                <button onclick="secenek(0)">Apple</button>
+                <button onclick="secenek(1)">Banana</button>
+                <button onclick="secenek(2)">Orange</button>
+                <button onclick="secenek(3)">Grape</button>
+                <button onclick="secenek(4)">Pineapple</button>
+                <button onclick="secenek(5)">Watermelon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="kelime-container2">
+            <h1 id="kelime2" style="font-size: 25px;">Tebrikler tüm kelimeleri başarıyla bildiniz</h1>
+        </div>
+        <h4>Toplam 35 hata yaptınız</h4>
+        <div style="background-color:aqua; margin-left: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 19px;      
+        width: 125px;  
+        " onclick="replay()">Yeniden Oyna</div>
+        <div id="scors">
+            <table>
+                <h2>En Yüksek Skorlar</h2>
+                <tr>
+                    <td>
+                        <a class="numbers">1</a> <a class="skor">3 Hata</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="numbers">2</a> <a class="skor">Yetersiz Oyun</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a class="numbers">3</a> <a class="skor">3 Hata</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function anaSayfa() {
+            window.location.href = "index.html";
+        }
+        console.log(Object.values(localStorage));
+        console.log(Object.keys(localStorage));
+        let correctSound = new Audio("media/success.mp3");
+        document.getElementsByClassName("container")[1].style.display = "none";
+        let falseSound = new Audio("media/error.mp3");
+        falseSound.volume = 0.1
+        let data = [
+            { "key": "alarm clock", "value": "alarm saati" },
+            { "key": "bath", "value": "banyo" },
+            { "key": "bed", "value": "yatak" },
+            { "key": "easy", "value": "kolay" },
+            { "key": "eat", "value": "yemek" },
+            { "key": "energetic", "value": "enerjik" },
+            { "key": "fall asleep", "value": "uykuya dalmak" },
+            { "key": "finish", "value": "bitirmek" },
+            { "key": "get up", "value": "kalkmak" },
+            { "key": "go off", "value": "defol" },
+            { "key": "nap", "value": "kestirme" },
+            { "key": "public transport", "value": "toplu taşıma" },
+            { "key": "relax", "value": "rahatlamak" },
+            { "key": "routine", "value": "rutin" },
+            { "key": "shower", "value": "duş" },
+            { "key": "wake up", "value": "uyanmak" },
+            { "key": "weekday", "value": "hafta içi gün" },
+            { "key": "advantage", "value": "avantaj" },
+            { "key": "completely", "value": "tamamen" },
+            { "key": "dental surgery", "value": "diş cerrahisi" },
+            { "key": "dentist", "value": "diş doktoru" },
+            { "key": "electric", "value": "elektrikli" },
+            { "key": "happily", "value": "mutlu bir şekilde" },
+            { "key": "healthy", "value": "sağlıklı" },
+            { "key": "job", "value": "iş" },
+            { "key": "light", "value": "ışık" },
+            { "key": "perfect", "value": "mükemmel" },
+            { "key": "personality", "value": "kişilik" },
+            { "key": "research", "value": "araştırma" },
+            { "key": "successful", "value": "başarılı" },
+            { "key": "advice", "value": "tavsiye" },
+            { "key": "break", "value": "mola" },
+            { "key": "concentrate", "value": "odaklanmak" },
+            { "key": "effectively", "value": "etkili bir şekilde" },
+            { "key": "exam", "value": "sınav" },
+            { "key": "list", "value": "liste" },
+            { "key": "loud", "value": "yüksek sesli" },
+            { "key": "move", "value": "hareket etmek" },
+            { "key": "non-stop", "value": "durmaksızın" },
+            { "key": "quiet", "value": "sessiz" },
+            { "key": "revise", "value": "gözden geçirmek" },
+            { "key": "reward", "value": "ödül" },
+            { "key": "social-networking site", "value": "sosyal medya sitesi" },
+            { "key": "study buddy", "value": "çalışma arkadaşı" },
+            { "key": "subject", "value": "konu" },
+            { "key": "text message", "value": "metin mesajı" },
+            { "key": "catch", "value": "yakalamak" },
+            { "key": "clothes", "value": "giysi" },
+            { "key": "email", "value": "e-posta" },
+            { "key": "ghost", "value": "hayalet" },
+            { "key": "guided tour", "value": "rehberli tur" },
+            { "key": "necessary", "value": "gerekli" },
+            { "key": "personal", "value": "kişisel" },
+            { "key": "qualification", "value": "nitelik" },
+            { "key": "quality", "value": "kalite" },
+            { "key": "real", "value": "gerçek" },
+            { "key": "story-teller", "value": "hikaye anlatıcısı" },
+            { "key": "supermarket", "value": "süpermarket" },
+            { "key": "tour", "value": "tur" },
+            { "key": "type", "value": "tür" },
+            { "key": "unusual", "value": "sıradışı" },
+            { "key": "visitor", "value": "ziyaretçi" },
+            { "key": "accountant", "value": "muhasebeci" },
+            { "key": "cook", "value": "aşçı" },
+            { "key": "dangerous", "value": "tehlikeli" },
+            { "key": "doctor", "value": "doktor" },
+            { "key": "judge", "value": "hakim" },
+            { "key": "nanny", "value": "dadı" },
+            { "key": "nurse", "value": "hemşire" },
+            { "key": "patient", "value": "hasta" },
+            { "key": "plumber", "value": "tesisatçı" },
+            { "key": "taxi driver", "value": "taksici" },
+            { "key": "translator", "value": "çevirmen" },
+            { "key": "uniform", "value": "üniforma" },
+            { "key": "journalist", "value": "gazeteci" },
+            { "key": "lawyer", "value": "avukat" },
+            { "key": "barrier", "value": "bariyer" },
+            { "key": "busy", "value": "meşgul" },
+            { "key": "line", "value": "hat" },
+            { "key": "river", "value": "nehir" },
+            { "key": "rush hour", "value": "iş çıkışı yoğun trafik saati" },
+            { "key": "station", "value": "istasyon" },
+            { "key": "underground", "value": "metro" },
+            { "key": "commute", "value": "işe gidip gelmek" },
+            { "key": "free", "value": "ücretsiz" },
+            { "key": "tourist", "value": "turist" },
+            { "key": "comfortable", "value": "rahat" },
+            { "key": "directions", "value": "yönlendirme" },
+            { "key": "frighten", "value": "korkutmak" },
+            { "key": "hairdresser", "value": "kuaför" },
+            { "key": "join", "value": "katılmak" },
+            { "key": "shout", "value": "bağırmak" },
+            { "key": "stretch", "value": "germek" },
+            { "key": "support", "value": "destek" },
+            { "key": "taste", "value": "tat" },
+            { "key": "trainer", "value": "spor ayakkabı" },
+            { "key": "warm-up", "value": "ısınma" },
+            { "key": "away", "value": "uzakta" },
+            { "key": "barman", "value": "barman" },
+            { "key": "cafeteria", "value": "kafeterya" },
+            { "key": "guide", "value": "rehber" },
+            { "key": "haunted", "value": "perili" },
+            { "key": "law", "value": "hukuk" },
+            { "key": "pay back", "value": "geri ödemek" },
+            { "key": "perfume", "value": "parfüm" },
+            { "key": "repair", "value": "tamir etmek" },
+            { "key": "smart", "value": "akıllı" },
+            { "key": "staff room", "value": "öğretmen odası" },
+            { "key": "tie", "value": "kravat" },
+            { "key": "tour guide", "value": "tur rehberi" },
+            { "key": "turn off", "value": "kapatmak" },
+            { "key": "visa", "value": "vize" },
+            { "key": "actor", "value": "aktör" },
+            { "key": "alive", "value": "canlı" },
+            { "key": "amazing", "value": "şaşırtıcı" },
+            { "key": "art", "value": "sanat" },
+            { "key": "company", "value": "şirket" },
+            { "key": "continent", "value": "kıta" },
+            { "key": "culture", "value": "kültür" },
+            { "key": "date", "value": "tarih" },
+            { "key": "design", "value": "tasarım" },
+            { "key": "easily", "value": "kolayca" },
+            { "key": "exciting", "value": "heyecan verici" },
+            { "key": "fact", "value": "gerçek" },
+            { "key": "fascinating", "value": "büyüleyici" },
+            { "key": "fashion", "value": "moda" },
+            { "key": "foreign", "value": "yabancı" },
+            { "key": "gallery", "value": "galeri" },
+            { "key": "independent", "value": "bağımsız" },
+            { "key": "obviously", "value": "açıkça" },
+            { "key": "period", "value": "dönem" },
+            { "key": "practical", "value": "pratik" },
+            { "key": "scary", "value": "korkutucu" },
+            { "key": "solve", "value": "çözmek" },
+            { "key": "sound", "value": "ses" },
+            { "key": "start", "value": "başlamak" },
+            { "key": "train", "value": "eğitmek" },
+            { "key": "translate", "value": "çevirmek" },
+            { "key": "turn out", "value": "sonuçlanmak" },
+            { "key": "useful", "value": "faydalı" },
+            { "key": "agree", "value": "katılmak" },
+            { "key": "change", "value": "değişiklik" }
+        ]
+
+
+        let data2 = [
+            { "key": "alarm clock", "value": "alarm saati" },
+            { "key": "bath", "value": "banyo" },
+            { "key": "bed", "value": "yatak" },
+            { "key": "easy", "value": "kolay" },
+            { "key": "eat", "value": "yemek" },
+            { "key": "energetic", "value": "enerjik" },
+            { "key": "fall asleep", "value": "uykuya dalmak" },
+            { "key": "finish", "value": "bitirmek" },
+            { "key": "get up", "value": "kalkmak" },
+            { "key": "go off", "value": "defol" },
+            { "key": "nap", "value": "kestirme" },
+            { "key": "public transport", "value": "toplu taşıma" },
+            { "key": "relax", "value": "rahatlamak" },
+            { "key": "routine", "value": "rutin" },
+            { "key": "shower", "value": "duş" },
+            { "key": "wake up", "value": "uyanmak" },
+            { "key": "weekday", "value": "hafta içi gün" },
+            { "key": "advantage", "value": "avantaj" },
+            { "key": "completely", "value": "tamamen" },
+            { "key": "dental surgery", "value": "diş cerrahisi" },
+            { "key": "dentist", "value": "diş doktoru" },
+            { "key": "electric", "value": "elektrikli" },
+            { "key": "happily", "value": "mutlu bir şekilde" },
+            { "key": "healthy", "value": "sağlıklı" },
+            { "key": "job", "value": "iş" },
+            { "key": "light", "value": "ışık" },
+            { "key": "perfect", "value": "mükemmel" },
+            { "key": "personality", "value": "kişilik" },
+            { "key": "research", "value": "araştırma" },
+            { "key": "successful", "value": "başarılı" },
+            { "key": "advice", "value": "tavsiye" },
+            { "key": "break", "value": "mola" },
+            { "key": "concentrate", "value": "odaklanmak" },
+            { "key": "effectively", "value": "etkili bir şekilde" },
+            { "key": "exam", "value": "sınav" },
+            { "key": "list", "value": "liste" },
+            { "key": "loud", "value": "yüksek sesli" },
+            { "key": "move", "value": "hareket etmek" },
+            { "key": "non-stop", "value": "durmaksızın" },
+            { "key": "quiet", "value": "sessiz" },
+            { "key": "revise", "value": "gözden geçirmek" },
+            { "key": "reward", "value": "ödül" },
+            { "key": "social-networking site", "value": "sosyal medya sitesi" },
+            { "key": "study buddy", "value": "çalışma arkadaşı" },
+            { "key": "subject", "value": "konu" },
+            { "key": "text message", "value": "metin mesajı" },
+            { "key": "catch", "value": "yakalamak" },
+            { "key": "clothes", "value": "giysi" },
+            { "key": "email", "value": "e-posta" },
+            { "key": "ghost", "value": "hayalet" },
+            { "key": "guided tour", "value": "rehberli tur" },
+            { "key": "necessary", "value": "gerekli" },
+            { "key": "personal", "value": "kişisel" },
+            { "key": "qualification", "value": "nitelik" },
+            { "key": "quality", "value": "kalite" },
+            { "key": "real", "value": "gerçek" },
+            { "key": "story-teller", "value": "hikaye anlatıcısı" },
+            { "key": "supermarket", "value": "süpermarket" },
+            { "key": "tour", "value": "tur" },
+            { "key": "type", "value": "tür" },
+            { "key": "unusual", "value": "sıradışı" },
+            { "key": "visitor", "value": "ziyaretçi" },
+            { "key": "accountant", "value": "muhasebeci" },
+            { "key": "cook", "value": "aşçı" },
+            { "key": "dangerous", "value": "tehlikeli" },
+            { "key": "doctor", "value": "doktor" },
+            { "key": "judge", "value": "hakim" },
+            { "key": "nanny", "value": "dadı" },
+            { "key": "nurse", "value": "hemşire" },
+            { "key": "patient", "value": "hasta" },
+            { "key": "plumber", "value": "tesisatçı" },
+            { "key": "taxi driver", "value": "taksici" },
+            { "key": "translator", "value": "çevirmen" },
+            { "key": "uniform", "value": "üniforma" },
+            { "key": "journalist", "value": "gazeteci" },
+            { "key": "lawyer", "value": "avukat" },
+            { "key": "barrier", "value": "bariyer" },
+            { "key": "busy", "value": "meşgul" },
+            { "key": "line", "value": "hat" },
+            { "key": "river", "value": "nehir" },
+            { "key": "rush hour", "value": "iş çıkışı yoğun trafik saati" },
+            { "key": "station", "value": "istasyon" },
+            { "key": "underground", "value": "metro" },
+            { "key": "commute", "value": "işe gidip gelmek" },
+            { "key": "free", "value": "ücretsiz" },
+            { "key": "tourist", "value": "turist" },
+            { "key": "comfortable", "value": "rahat" },
+            { "key": "directions", "value": "yönlendirme" },
+            { "key": "frighten", "value": "korkutmak" },
+            { "key": "hairdresser", "value": "kuaför" },
+            { "key": "join", "value": "katılmak" },
+            { "key": "shout", "value": "bağırmak" },
+            { "key": "stretch", "value": "germek" },
+            { "key": "support", "value": "destek" },
+            { "key": "taste", "value": "tat" },
+            { "key": "trainer", "value": "spor ayakkabı" },
+            { "key": "warm-up", "value": "ısınma" },
+            { "key": "away", "value": "uzakta" },
+            { "key": "barman", "value": "barman" },
+            { "key": "cafeteria", "value": "kafeterya" },
+            { "key": "guide", "value": "rehber" },
+            { "key": "haunted", "value": "perili" },
+            { "key": "law", "value": "hukuk" },
+            { "key": "pay back", "value": "geri ödemek" },
+            { "key": "perfume", "value": "parfüm" },
+            { "key": "repair", "value": "tamir etmek" },
+            { "key": "smart", "value": "akıllı" },
+            { "key": "staff room", "value": "öğretmen odası" },
+            { "key": "tie", "value": "kravat" },
+            { "key": "tour guide", "value": "tur rehberi" },
+            { "key": "turn off", "value": "kapatmak" },
+            { "key": "visa", "value": "vize" },
+            { "key": "actor", "value": "aktör" },
+            { "key": "alive", "value": "canlı" },
+            { "key": "amazing", "value": "şaşırtıcı" },
+            { "key": "art", "value": "sanat" },
+            { "key": "company", "value": "şirket" },
+            { "key": "continent", "value": "kıta" },
+            { "key": "culture", "value": "kültür" },
+            { "key": "date", "value": "tarih" },
+            { "key": "design", "value": "tasarım" },
+            { "key": "easily", "value": "kolayca" },
+            { "key": "exciting", "value": "heyecan verici" },
+            { "key": "fact", "value": "gerçek" },
+            { "key": "fascinating", "value": "büyüleyici" },
+            { "key": "fashion", "value": "moda" },
+            { "key": "foreign", "value": "yabancı" },
+            { "key": "gallery", "value": "galeri" },
+            { "key": "independent", "value": "bağımsız" },
+            { "key": "obviously", "value": "açıkça" },
+            { "key": "period", "value": "dönem" },
+            { "key": "practical", "value": "pratik" },
+            { "key": "scary", "value": "korkutucu" },
+            { "key": "solve", "value": "çözmek" },
+            { "key": "sound", "value": "ses" },
+            { "key": "start", "value": "başlamak" },
+            { "key": "train", "value": "eğitmek" },
+            { "key": "translate", "value": "çevirmek" },
+            { "key": "turn out", "value": "sonuçlanmak" },
+            { "key": "useful", "value": "faydalı" },
+            { "key": "agree", "value": "katılmak" },
+            { "key": "change", "value": "değişiklik" }
+        ]
+
+
+        let yanlislar = [];
+        let toplamHata = 0;
+
+
+
+        let butonRandomKelime = 0;
+        let buton = document.querySelectorAll("button");
+        let kelime = document.querySelector("#kelime");
+        let skors = document.getElementsByClassName("skor");
+
+        document.querySelector("span").innerText = data.length;
+        let randomKelime = Math.floor(Math.random() * data.length);
+        let randomNo = Math.floor(Math.random() * 6);
+        kelime.innerHTML = data[randomKelime].key;
+        buton[randomNo].innerText = data[randomKelime].value;
+        for (let i = 0; i < buton.length; i++) {
+            if (i == randomNo) {
+                continue;
+            }
+            butonRandomKelime = Math.floor(Math.random() * data2.length);
+            buton[i].innerText = data2[butonRandomKelime].value;
+        }
+
+        function secenek(no) {
+
+            correctSound.currentTime = 0.0;
+            falseSound.currentTime = 0.0;
+            if (buton[no].innerText == buton[randomNo].innerText) {
+                data.splice(randomKelime, 1)
+
+                if (data.length == 0) {
+                    if (data.length + yanlislar.length == 0) {
+                        document.getElementById("div").style.display = "none";
+                        document.getElementsByClassName("container")[1].style.display = "inline";
+                        document.querySelector("h4").innerText = "Toplam " + toplamHata + " hata yaptınız";
+                        let lokalSkorlar = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            if (Object.keys(localStorage)[i].includes("a2Unite3")) {
+                                lokalSkorlar.push(Number(Object.values(localStorage)[i]))
+                            }
+                        }
+                        localStorage.setItem("a2Unite3No" + lokalSkorlar.length, toplamHata);
+                        lokalSkorlar.push(localStorage.getItem("a2Unite3No" + lokalSkorlar.length))
+                        toplamHata = 0;
+                        if (lokalSkorlar.length == 1) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = "Yetersiz Oyun";
+                            skors[0].innerText = lokalSkorlar[0] + " Hata"
+                        }
+                        else if (lokalSkorlar.length == 2) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = Math.max(...lokalSkorlar) + " Hata";
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                        }
+                        else {
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            let index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[1].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[2].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar = [];
+                        }
+                    }
+                    else {
+                        data = [];
+                        for (let i = 0; i < yanlislar.length; i++) {
+                            data.push({ key: yanlislar[i].key, value: yanlislar[i].value })
+                        }
+
+                        yanlislar = [];
+                        console.log(data);
+                    }
+
+
+                }
+                buton.forEach(element => {
+                    element.style.backgroundColor = "#c8ff00";
+                });
+                falseSound.pause();
+
+                correctSound.play();
+                randomKelime = Math.floor(Math.random() * data.length);
+                randomNo = Math.floor(Math.random() * 6);
+                kelime.innerHTML = data[randomKelime].key;
+                buton[randomNo].innerText = data[randomKelime].value;
+
+                for (let i = 0; i < buton.length; i++) {
+                    if (i == randomNo) {
+                        continue;
+                    }
+                    butonRandomKelime = Math.floor(Math.random() * data2.length);
+                    buton[i].innerText = data2[butonRandomKelime].value;
+                }
+                document.querySelector("span").innerText = data.length + yanlislar.length;
+
+
+            }
+            else {
+                toplamHata++;
+
+                correctSound.pause();
+                falseSound.play();
+                buton[no].style.backgroundColor = "red";
+                if (yanlislar.length == 0 || yanlislar[yanlislar.length - 1].key != data[randomKelime].key) {
+                    yanlislar.push({ key: data[randomKelime].key, value: data[randomKelime].value });
+                }
+
+            }
+
+        }
+
+
+        function replay() {
+            data = [
+                { "key": "alarm clock", "value": "alarm saati" },
+                { "key": "bath", "value": "banyo" },
+                { "key": "bed", "value": "yatak" },
+                { "key": "easy", "value": "kolay" },
+                { "key": "eat", "value": "yemek" },
+                { "key": "energetic", "value": "enerjik" },
+                { "key": "fall asleep", "value": "uykuya dalmak" },
+                { "key": "finish", "value": "bitirmek" },
+                { "key": "get up", "value": "kalkmak" },
+                { "key": "go off", "value": "defol" },
+                { "key": "nap", "value": "kestirme" },
+                { "key": "public transport", "value": "toplu taşıma" },
+                { "key": "relax", "value": "rahatlamak" },
+                { "key": "routine", "value": "rutin" },
+                { "key": "shower", "value": "duş" },
+                { "key": "wake up", "value": "uyanmak" },
+                { "key": "weekday", "value": "hafta içi gün" },
+                { "key": "advantage", "value": "avantaj" },
+                { "key": "completely", "value": "tamamen" },
+                { "key": "dental surgery", "value": "diş cerrahisi" },
+                { "key": "dentist", "value": "diş doktoru" },
+                { "key": "electric", "value": "elektrikli" },
+                { "key": "happily", "value": "mutlu bir şekilde" },
+                { "key": "healthy", "value": "sağlıklı" },
+                { "key": "job", "value": "iş" },
+                { "key": "light", "value": "ışık" },
+                { "key": "perfect", "value": "mükemmel" },
+                { "key": "personality", "value": "kişilik" },
+                { "key": "research", "value": "araştırma" },
+                { "key": "successful", "value": "başarılı" },
+                { "key": "advice", "value": "tavsiye" },
+                { "key": "break", "value": "mola" },
+                { "key": "concentrate", "value": "odaklanmak" },
+                { "key": "effectively", "value": "etkili bir şekilde" },
+                { "key": "exam", "value": "sınav" },
+                { "key": "list", "value": "liste" },
+                { "key": "loud", "value": "yüksek sesli" },
+                { "key": "move", "value": "hareket etmek" },
+                { "key": "non-stop", "value": "durmaksızın" },
+                { "key": "quiet", "value": "sessiz" },
+                { "key": "revise", "value": "gözden geçirmek" },
+                { "key": "reward", "value": "ödül" },
+                { "key": "social-networking site", "value": "sosyal medya sitesi" },
+                { "key": "study buddy", "value": "çalışma arkadaşı" },
+                { "key": "subject", "value": "konu" },
+                { "key": "text message", "value": "metin mesajı" },
+                { "key": "catch", "value": "yakalamak" },
+                { "key": "clothes", "value": "giysi" },
+                { "key": "email", "value": "e-posta" },
+                { "key": "ghost", "value": "hayalet" },
+                { "key": "guided tour", "value": "rehberli tur" },
+                { "key": "necessary", "value": "gerekli" },
+                { "key": "personal", "value": "kişisel" },
+                { "key": "qualification", "value": "nitelik" },
+                { "key": "quality", "value": "kalite" },
+                { "key": "real", "value": "gerçek" },
+                { "key": "story-teller", "value": "hikaye anlatıcısı" },
+                { "key": "supermarket", "value": "süpermarket" },
+                { "key": "tour", "value": "tur" },
+                { "key": "type", "value": "tür" },
+                { "key": "unusual", "value": "sıradışı" },
+                { "key": "visitor", "value": "ziyaretçi" },
+                { "key": "accountant", "value": "muhasebeci" },
+                { "key": "cook", "value": "aşçı" },
+                { "key": "dangerous", "value": "tehlikeli" },
+                { "key": "doctor", "value": "doktor" },
+                { "key": "judge", "value": "hakim" },
+                { "key": "nanny", "value": "dadı" },
+                { "key": "nurse", "value": "hemşire" },
+                { "key": "patient", "value": "hasta" },
+                { "key": "plumber", "value": "tesisatçı" },
+                { "key": "taxi driver", "value": "taksici" },
+                { "key": "translator", "value": "çevirmen" },
+                { "key": "uniform", "value": "üniforma" },
+                { "key": "journalist", "value": "gazeteci" },
+                { "key": "lawyer", "value": "avukat" },
+                { "key": "barrier", "value": "bariyer" },
+                { "key": "busy", "value": "meşgul" },
+                { "key": "line", "value": "hat" },
+                { "key": "river", "value": "nehir" },
+                { "key": "rush hour", "value": "iş çıkışı yoğun trafik saati" },
+                { "key": "station", "value": "istasyon" },
+                { "key": "underground", "value": "metro" },
+                { "key": "commute", "value": "işe gidip gelmek" },
+                { "key": "free", "value": "ücretsiz" },
+                { "key": "tourist", "value": "turist" },
+                { "key": "comfortable", "value": "rahat" },
+                { "key": "directions", "value": "yönlendirme" },
+                { "key": "frighten", "value": "korkutmak" },
+                { "key": "hairdresser", "value": "kuaför" },
+                { "key": "join", "value": "katılmak" },
+                { "key": "shout", "value": "bağırmak" },
+                { "key": "stretch", "value": "germek" },
+                { "key": "support", "value": "destek" },
+                { "key": "taste", "value": "tat" },
+                { "key": "trainer", "value": "spor ayakkabı" },
+                { "key": "warm-up", "value": "ısınma" },
+                { "key": "away", "value": "uzakta" },
+                { "key": "barman", "value": "barman" },
+                { "key": "cafeteria", "value": "kafeterya" },
+                { "key": "guide", "value": "rehber" },
+                { "key": "haunted", "value": "perili" },
+                { "key": "law", "value": "hukuk" },
+                { "key": "pay back", "value": "geri ödemek" },
+                { "key": "perfume", "value": "parfüm" },
+                { "key": "repair", "value": "tamir etmek" },
+                { "key": "smart", "value": "akıllı" },
+                { "key": "staff room", "value": "öğretmen odası" },
+                { "key": "tie", "value": "kravat" },
+                { "key": "tour guide", "value": "tur rehberi" },
+                { "key": "turn off", "value": "kapatmak" },
+                { "key": "visa", "value": "vize" },
+                { "key": "actor", "value": "aktör" },
+                { "key": "alive", "value": "canlı" },
+                { "key": "amazing", "value": "şaşırtıcı" },
+                { "key": "art", "value": "sanat" },
+                { "key": "company", "value": "şirket" },
+                { "key": "continent", "value": "kıta" },
+                { "key": "culture", "value": "kültür" },
+                { "key": "date", "value": "tarih" },
+                { "key": "design", "value": "tasarım" },
+                { "key": "easily", "value": "kolayca" },
+                { "key": "exciting", "value": "heyecan verici" },
+                { "key": "fact", "value": "gerçek" },
+                { "key": "fascinating", "value": "büyüleyici" },
+                { "key": "fashion", "value": "moda" },
+                { "key": "foreign", "value": "yabancı" },
+                { "key": "gallery", "value": "galeri" },
+                { "key": "independent", "value": "bağımsız" },
+                { "key": "obviously", "value": "açıkça" },
+                { "key": "period", "value": "dönem" },
+                { "key": "practical", "value": "pratik" },
+                { "key": "scary", "value": "korkutucu" },
+                { "key": "solve", "value": "çözmek" },
+                { "key": "sound", "value": "ses" },
+                { "key": "start", "value": "başlamak" },
+                { "key": "train", "value": "eğitmek" },
+                { "key": "translate", "value": "çevirmek" },
+                { "key": "turn out", "value": "sonuçlanmak" },
+                { "key": "useful", "value": "faydalı" },
+                { "key": "agree", "value": "katılmak" },
+                { "key": "change", "value": "değişiklik" }
+            ]
+
+
+
+
+            document.getElementById("div").style.display = "inline";
+            document.getElementsByClassName("container")[1].style.display = "none";
+            randomKelime = Math.floor(Math.random() * data.length);
+            randomNo = Math.floor(Math.random() * 6);
+            kelime.innerHTML = data[randomKelime].key;
+            buton[randomNo].innerText = data[randomKelime].value;
+
+            for (let i = 0; i < buton.length; i++) {
+                if (i == randomNo) {
+                    continue;
+                }
+                butonRandomKelime = Math.floor(Math.random() * data2.length);
+                buton[i].innerText = data2[butonRandomKelime].value;
+            }
+            document.querySelector("span").innerText = data.length + yanlislar.length;
+            secenek();
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ünite 5 kelimeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* position: relative; */
+
+        }
+
+        #kelime-container,
+        #kelime-container2 {
+            background-color: #16b766;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        #kelime,
+        #kelime2 {
+            color: white;
+            width: 250px;
+            text-align: center;
+
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+        }
+
+        button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: large;
+            box-shadow: 0 10px 20px rgb(27, 28, 27);
+
+
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h3 {
+            color: #c8ff00;
+            background-color: rgb(43, 110, 110);
+            border-radius: 5px;
+            width: 125px;
+            text-align: center;
+            margin-left: 125px;
+            position: absolute;
+            top: 138px;
+            right: 55px;
+        }
+
+        h4 {
+            background-color: #393e28;
+            width: 230px;
+            padding: 15px;
+            border-radius: 25px;
+            color: #c8ff00;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        .numbers {
+
+            background-color: #c8ff00;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+
+
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        #scors {
+            background-color: rgb(239, 16, 16);
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            background-color: bisque;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .skor {
+            margin-left: 10px;
+            color: aqua;
+            background-color: rgb(78, 49, 7);
+            padding: 5px 10px;
+            border-radius: 5px;
+
+        }
+
+        #div {
+            position: relative;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #393e28;">
+
+    <div id="div">
+        <h3 style=" z-index: 1;
+    background-color:burlywood;
+    color:blue;
+    margin-left: 0px;
+        top: 0px;
+        right: 260px;
+
+    " id="anaSayfa" onclick="anaSayfa()">Ana Sayfa</h3>
+        <div class="container">
+
+            <div id="kelime-container">
+                <h1 id="kelime">Apple</h1>
+                <h3>kalan <span>75</span></h3>
+            </div>
+            <div class="options">
+                <button onclick="secenek(0)">Apple</button>
+                <button onclick="secenek(1)">Banana</button>
+                <button onclick="secenek(2)">Orange</button>
+                <button onclick="secenek(3)">Grape</button>
+                <button onclick="secenek(4)">Pineapple</button>
+                <button onclick="secenek(5)">Watermelon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="kelime-container2">
+            <h1 id="kelime2" style="font-size: 25px;">Tebrikler tüm kelimeleri başarıyla bildiniz</h1>
+        </div>
+        <h4>Toplam 35 hata yaptınız</h4>
+        <div style="background-color:aqua; margin-left: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 19px;      
+        width: 125px;  
+        " onclick="replay()">Yeniden Oyna</div>
+        <div id="scors">
+            <table>
+                <h2>En Yüksek Skorlar</h2>
+                <tr>
+                    <td>
+                        <a class="numbers">1</a> <a class="skor">3 Hata</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="numbers">2</a> <a class="skor">Yetersiz Oyun</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a class="numbers">3</a> <a class="skor">3 Hata</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function anaSayfa() {
+            window.location.href = "index.html";
+        }
+        console.log(Object.values(localStorage));
+        console.log(Object.keys(localStorage));
+        let correctSound = new Audio("media/success.mp3");
+        document.getElementsByClassName("container")[1].style.display = "none";
+        let falseSound = new Audio("media/error.mp3");
+        falseSound.volume = 0.1
+        let data =
+
+            [
+                { "key": "academic", "value": "Akademik" },
+                { "key": "affection", "value": "Zuneigung" },
+                { "key": "arranged", "value": "Düzenlenmiş" },
+                { "key": "marriage", "value": "Evlilik" },
+                { "key": "background", "value": "Arka plan, geçmiş" },
+                { "key": "business-like", "value": "İş gibi" },
+                { "key": "characteristic", "value": "Karakteristik, özellik" },
+                { "key": "claim", "value": "İddia etmek" },
+                { "key": "deliberately", "value": "Kasten, bilerek" },
+                { "key": "divorce", "value": "Boşanma" },
+                { "key": "engaged", "value": "Nişanlı" },
+                { "key": "engagement", "value": "Nişan" },
+                { "key": "findings", "value": "Bulgular" },
+                { "key": "happily", "value": "Mutlu bir şekilde" },
+                { "key": "happiness", "value": "Mutluluk" },
+                { "key": "learn", "value": "Öğrenmek" },
+                { "key": "likely", "value": "Muhtemel" },
+                { "key": "meet", "value": "Buluşmak" },
+                { "key": "over time", "value": "Zaman içinde" },
+                { "key": "principle", "value": "Prensip" },
+                { "key": "rate", "value": "Oran, hız" },
+                { "key": "regular", "value": "Düzenli" },
+                { "key": "rely on", "value": "Güvenmek, bel bağlamak" },
+                { "key": "sense", "value": "His, duyu" },
+                { "key": "share", "value": "Paylaşmak" },
+                { "key": "strongly", "value": "Güçlü bir şekilde" },
+                { "key": "such", "value": "Böyle, bu tür" },
+                { "key": "support", "value": "Destek" },
+                { "key": "thoughtful", "value": "Düşünceli" },
+                { "key": "uncertainty", "value": "Belirsizlik" },
+                { "key": "usually", "value": "Genellikle" },
+                { "key": "values", "value": "Değerler" },
+                { "key": "whereas", "value": "Oysa ki" },
+                { "key": "affectionate", "value": "Şefkatli, sevgi dolu" },
+                { "key": "annoyed", "value": "Kızgın, sinirlenmiş" },
+                { "key": "apply", "value": "Başvurmak, uygulamak" },
+                { "key": "arrange", "value": "Düzenlemek" },
+                { "key": "calmly", "value": "Sakince" },
+                { "key": "date", "value": "Buluşma, tarih" },
+                { "key": "dating site", "value": "Arkadaşlık sitesi" },
+                { "key": "divorced", "value": "Boşanmış" },
+                { "key": "easy-going", "value": "Kolay anlaşılır, sakin" },
+                { "key": "flatmate", "value": "Ev arkadaşı" },
+                { "key": "forced", "value": "Zorlanmış" },
+                { "key": "future", "value": "Gelecek" },
+                { "key": "gentle", "value": "Nazik, kibar" },
+                { "key": "honest", "value": "Dürüst" },
+                { "key": "open", "value": "Açık, net" },
+                { "key": "reliable", "value": "Güvenilir" },
+                { "key": "right", "value": "Doğru, hak" },
+                { "key": "sensitive", "value": "Hassas" },
+                { "key": "successful", "value": "Başarılı" },
+                { "key": "sympathetic", "value": "İlgi gösteren, anlayışlı" },
+                { "key": "truth", "value": "Gerçek, hakikat" },
+                { "key": "type", "value": "Tür, tip" },
+                { "key": "upset", "value": "Üzgün, moralsız" },
+                { "key": "fix", "value": "Tamir etmek, düzeltmek" },
+                { "key": "free of charge", "value": "Ücretsiz" },
+                { "key": "housework", "value": "Ev işleri" },
+                { "key": "rent", "value": "Kiralamak" },
+                { "key": "salary", "value": "Maaş" },
+                { "key": "share", "value": "Paylaşmak" },
+                { "key": "graphic design", "value": "Grafik tasarım" },
+                { "key": "applicant", "value": "Başvuran kişi" },
+                { "key": "apply", "value": "Başvurmak" },
+                { "key": "audition", "value": "Seçme, deneme" },
+                { "key": "chance", "value": "Şans, olasılık" },
+                { "key": "CV", "value": "Özgeçmiş" },
+                { "key": "dish", "value": "Yemek" },
+                { "key": "enthusiastic", "value": "Hevesli" },
+                { "key": "film", "value": "Film çekmek" },
+                { "key": "impression", "value": "İzlenim" },
+                { "key": "panel", "value": "Kurul, heyet" },
+                { "key": "patiently", "value": "Sabırla" },
+                { "key": "statement", "value": "Açıklama, ifade" },
+                { "key": "agency", "value": "Ajans" },
+                { "key": "application", "value": "Başvuru" },
+                { "key": "appropriate", "value": "Uygun" },
+                { "key": "driving licence", "value": "Ehliyet" },
+                { "key": "fill in", "value": "Doldurmak" },
+                { "key": "form", "value": "Form" },
+                { "key": "interviewer", "value": "Mülakat yapan kişi" },
+                { "key": "log on", "value": "Oturum açmak" },
+                { "key": "mistake", "value": "Hata" },
+                { "key": "part-time", "value": "Yarı zamanlı" },
+                { "key": "recruitment", "value": "İstihdam" },
+                { "key": "suit", "value": "Takım elbise" },
+                { "key": "ability", "value": "Yetenek" },
+                { "key": "grow up", "value": "Büyümek" },
+                { "key": "hot", "value": "Sıcak" },
+                { "key": "look after", "value": "Bakmak, ilgilenmek" },
+                { "key": "media", "value": "Medya" },
+                { "key": "night school", "value": "Akşam okulu" },
+                { "key": "orphan", "value": "Yetim" },
+                { "key": "politician", "value": "Politikacı" },
+                { "key": "poor", "value": "Yoksul" },
+                { "key": "prefer", "value": "Tercih etmek" },
+                { "key": "single", "value": "Tek, yalnız" },
+                { "key": "specialise", "value": "Uzmanlaşmak" },
+                { "key": "success", "value": "Başarı" },
+                { "key": "unknown", "value": "Bilinmeyen" },
+                { "key": "bandana", "value": "Başörtüsü, bandana" },
+                { "key": "define", "value": "Tanımlamak" },
+                { "key": "fedora", "value": "Feltre şapka, fedora" },
+                { "key": "flared", "value": "Geniş paçalı" },
+                { "key": "free", "value": "Özgür, bedava" },
+                { "key": "anime", "value": "Anime (Japon çizgi film)" },
+                { "key": "movement", "value": "Hareket, akım" },
+                { "key": "access", "value": "Erişim" },
+                { "key": "date of birth", "value": "Doğum tarihi" },
+                { "key": "degree", "value": "Derece, lisans" },
+                { "key": "hide", "value": "Saklamak, gizlemek" },
+                { "key": "ink", "value": "Mürekkep" },
+                { "key": "lie", "value": "Yalan" },
+                { "key": "romantic", "value": "Romantik" },
+                { "key": "excellent", "value": "Mükemmel, olağanüstü" },
+                { "key": "sportsperson", "value": "Sporcu" },
+                { "key": "strong", "value": "Güçlü" }
+            ]
+
+
+
+
+        let data2 =
+
+            [
+                { "key": "academic", "value": "Akademik" },
+                { "key": "affection", "value": "Zuneigung" },
+                { "key": "arranged", "value": "Düzenlenmiş" },
+                { "key": "marriage", "value": "Evlilik" },
+                { "key": "background", "value": "Arka plan, geçmiş" },
+                { "key": "business-like", "value": "İş gibi" },
+                { "key": "characteristic", "value": "Karakteristik, özellik" },
+                { "key": "claim", "value": "İddia etmek" },
+                { "key": "deliberately", "value": "Kasten, bilerek" },
+                { "key": "divorce", "value": "Boşanma" },
+                { "key": "engaged", "value": "Nişanlı" },
+                { "key": "engagement", "value": "Nişan" },
+                { "key": "findings", "value": "Bulgular" },
+                { "key": "happily", "value": "Mutlu bir şekilde" },
+                { "key": "happiness", "value": "Mutluluk" },
+                { "key": "learn", "value": "Öğrenmek" },
+                { "key": "likely", "value": "Muhtemel" },
+                { "key": "meet", "value": "Buluşmak" },
+                { "key": "over time", "value": "Zaman içinde" },
+                { "key": "principle", "value": "Prensip" },
+                { "key": "rate", "value": "Oran, hız" },
+                { "key": "regular", "value": "Düzenli" },
+                { "key": "rely on", "value": "Güvenmek, bel bağlamak" },
+                { "key": "sense", "value": "His, duyu" },
+                { "key": "share", "value": "Paylaşmak" },
+                { "key": "strongly", "value": "Güçlü bir şekilde" },
+                { "key": "such", "value": "Böyle, bu tür" },
+                { "key": "support", "value": "Destek" },
+                { "key": "thoughtful", "value": "Düşünceli" },
+                { "key": "uncertainty", "value": "Belirsizlik" },
+                { "key": "usually", "value": "Genellikle" },
+                { "key": "values", "value": "Değerler" },
+                { "key": "whereas", "value": "Oysa ki" },
+                { "key": "affectionate", "value": "Şefkatli, sevgi dolu" },
+                { "key": "annoyed", "value": "Kızgın, sinirlenmiş" },
+                { "key": "apply", "value": "Başvurmak, uygulamak" },
+                { "key": "arrange", "value": "Düzenlemek" },
+                { "key": "calmly", "value": "Sakince" },
+                { "key": "date", "value": "Buluşma, tarih" },
+                { "key": "dating site", "value": "Arkadaşlık sitesi" },
+                { "key": "divorced", "value": "Boşanmış" },
+                { "key": "easy-going", "value": "Kolay anlaşılır, sakin" },
+                { "key": "flatmate", "value": "Ev arkadaşı" },
+                { "key": "forced", "value": "Zorlanmış" },
+                { "key": "future", "value": "Gelecek" },
+                { "key": "gentle", "value": "Nazik, kibar" },
+                { "key": "honest", "value": "Dürüst" },
+                { "key": "open", "value": "Açık, net" },
+                { "key": "reliable", "value": "Güvenilir" },
+                { "key": "right", "value": "Doğru, hak" },
+                { "key": "sensitive", "value": "Hassas" },
+                { "key": "successful", "value": "Başarılı" },
+                { "key": "sympathetic", "value": "İlgi gösteren, anlayışlı" },
+                { "key": "truth", "value": "Gerçek, hakikat" },
+                { "key": "type", "value": "Tür, tip" },
+                { "key": "upset", "value": "Üzgün, moralsız" },
+                { "key": "fix", "value": "Tamir etmek, düzeltmek" },
+                { "key": "free of charge", "value": "Ücretsiz" },
+                { "key": "housework", "value": "Ev işleri" },
+                { "key": "rent", "value": "Kiralamak" },
+                { "key": "salary", "value": "Maaş" },
+                { "key": "share", "value": "Paylaşmak" },
+                { "key": "graphic design", "value": "Grafik tasarım" },
+                { "key": "applicant", "value": "Başvuran kişi" },
+                { "key": "apply", "value": "Başvurmak" },
+                { "key": "audition", "value": "Seçme, deneme" },
+                { "key": "chance", "value": "Şans, olasılık" },
+                { "key": "CV", "value": "Özgeçmiş" },
+                { "key": "dish", "value": "Yemek" },
+                { "key": "enthusiastic", "value": "Hevesli" },
+                { "key": "film", "value": "Film çekmek" },
+                { "key": "impression", "value": "İzlenim" },
+                { "key": "panel", "value": "Kurul, heyet" },
+                { "key": "patiently", "value": "Sabırla" },
+                { "key": "statement", "value": "Açıklama, ifade" },
+                { "key": "agency", "value": "Ajans" },
+                { "key": "application", "value": "Başvuru" },
+                { "key": "appropriate", "value": "Uygun" },
+                { "key": "driving licence", "value": "Ehliyet" },
+                { "key": "fill in", "value": "Doldurmak" },
+                { "key": "form", "value": "Form" },
+                { "key": "interviewer", "value": "Mülakat yapan kişi" },
+                { "key": "log on", "value": "Oturum açmak" },
+                { "key": "mistake", "value": "Hata" },
+                { "key": "part-time", "value": "Yarı zamanlı" },
+                { "key": "recruitment", "value": "İstihdam" },
+                { "key": "suit", "value": "Takım elbise" },
+                { "key": "ability", "value": "Yetenek" },
+                { "key": "grow up", "value": "Büyümek" },
+                { "key": "hot", "value": "Sıcak" },
+                { "key": "look after", "value": "Bakmak, ilgilenmek" },
+                { "key": "media", "value": "Medya" },
+                { "key": "night school", "value": "Akşam okulu" },
+                { "key": "orphan", "value": "Yetim" },
+                { "key": "politician", "value": "Politikacı" },
+                { "key": "poor", "value": "Yoksul" },
+                { "key": "prefer", "value": "Tercih etmek" },
+                { "key": "single", "value": "Tek, yalnız" },
+                { "key": "specialise", "value": "Uzmanlaşmak" },
+                { "key": "success", "value": "Başarı" },
+                { "key": "unknown", "value": "Bilinmeyen" },
+                { "key": "bandana", "value": "Başörtüsü, bandana" },
+                { "key": "define", "value": "Tanımlamak" },
+                { "key": "fedora", "value": "Feltre şapka, fedora" },
+                { "key": "flared", "value": "Geniş paçalı" },
+                { "key": "free", "value": "Özgür, bedava" },
+                { "key": "anime", "value": "Anime (Japon çizgi film)" },
+                { "key": "movement", "value": "Hareket, akım" },
+                { "key": "access", "value": "Erişim" },
+                { "key": "date of birth", "value": "Doğum tarihi" },
+                { "key": "degree", "value": "Derece, lisans" },
+                { "key": "hide", "value": "Saklamak, gizlemek" },
+                { "key": "ink", "value": "Mürekkep" },
+                { "key": "lie", "value": "Yalan" },
+                { "key": "romantic", "value": "Romantik" },
+                { "key": "excellent", "value": "Mükemmel, olağanüstü" },
+                { "key": "sportsperson", "value": "Sporcu" },
+                { "key": "strong", "value": "Güçlü" }
+            ]
+
+
+
+
+        let yanlislar = [];
+        let toplamHata = 0;
+
+
+
+        let butonRandomKelime = 0;
+        let buton = document.querySelectorAll("button");
+        let kelime = document.querySelector("#kelime");
+        let skors = document.getElementsByClassName("skor");
+
+        document.querySelector("span").innerText = data.length;
+        let randomKelime = Math.floor(Math.random() * data.length);
+        let randomNo = Math.floor(Math.random() * 6);
+        kelime.innerHTML = data[randomKelime].key;
+        buton[randomNo].innerText = data[randomKelime].value;
+        for (let i = 0; i < buton.length; i++) {
+            if (i == randomNo) {
+                continue;
+            }
+            butonRandomKelime = Math.floor(Math.random() * data2.length);
+            buton[i].innerText = data2[butonRandomKelime].value;
+        }
+
+        function secenek(no) {
+
+            correctSound.currentTime = 0.0;
+            falseSound.currentTime = 0.0;
+            if (buton[no].innerText == buton[randomNo].innerText) {
+                data.splice(randomKelime, 1)
+
+                if (data.length == 0) {
+                    if (data.length + yanlislar.length == 0) {
+                        document.getElementById("div").style.display = "none";
+                        document.getElementsByClassName("container")[1].style.display = "inline";
+                        document.querySelector("h4").innerText = "Toplam " + toplamHata + " hata yaptınız";
+                        let lokalSkorlar = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            if (Object.keys(localStorage)[i].includes("a2Unite14")) {
+                                lokalSkorlar.push(Number(Object.values(localStorage)[i]))
+                            }
+                        }
+                        localStorage.setItem("a2Unite14No" + lokalSkorlar.length, toplamHata);
+                        lokalSkorlar.push(localStorage.getItem("a2Unite14No" + lokalSkorlar.length))
+                        toplamHata = 0;
+                        if (lokalSkorlar.length == 1) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = "Yetersiz Oyun";
+                            skors[0].innerText = lokalSkorlar[0] + " Hata"
+                        }
+                        else if (lokalSkorlar.length == 2) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = Math.max(...lokalSkorlar) + " Hata";
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                        }
+                        else {
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            let index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[1].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[2].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar = [];
+                        }
+                    }
+                    else {
+                        data = [];
+                        for (let i = 0; i < yanlislar.length; i++) {
+                            data.push({ key: yanlislar[i].key, value: yanlislar[i].value })
+                        }
+
+                        yanlislar = [];
+                        console.log(data);
+                    }
+
+
+                }
+                buton.forEach(element => {
+                    element.style.backgroundColor = "#c8ff00";
+                });
+                falseSound.pause();
+
+                correctSound.play();
+                randomKelime = Math.floor(Math.random() * data.length);
+                randomNo = Math.floor(Math.random() * 6);
+                kelime.innerHTML = data[randomKelime].key;
+                buton[randomNo].innerText = data[randomKelime].value;
+
+                for (let i = 0; i < buton.length; i++) {
+                    if (i == randomNo) {
+                        continue;
+                    }
+                    butonRandomKelime = Math.floor(Math.random() * data2.length);
+                    buton[i].innerText = data2[butonRandomKelime].value;
+                }
+                document.querySelector("span").innerText = data.length + yanlislar.length;
+
+
+            }
+            else {
+                toplamHata++;
+
+                correctSound.pause();
+                falseSound.play();
+                buton[no].style.backgroundColor = "red";
+                if (yanlislar.length == 0 || yanlislar[yanlislar.length - 1].key != data[randomKelime].key) {
+                    yanlislar.push({ key: data[randomKelime].key, value: data[randomKelime].value });
+                }
+
+            }
+
+        }
+
+
+        function replay() {
+            data =
+
+                [
+                    { "key": "academic", "value": "Akademik" },
+                    { "key": "affection", "value": "Zuneigung" },
+                    { "key": "arranged", "value": "Düzenlenmiş" },
+                    { "key": "marriage", "value": "Evlilik" },
+                    { "key": "background", "value": "Arka plan, geçmiş" },
+                    { "key": "business-like", "value": "İş gibi" },
+                    { "key": "characteristic", "value": "Karakteristik, özellik" },
+                    { "key": "claim", "value": "İddia etmek" },
+                    { "key": "deliberately", "value": "Kasten, bilerek" },
+                    { "key": "divorce", "value": "Boşanma" },
+                    { "key": "engaged", "value": "Nişanlı" },
+                    { "key": "engagement", "value": "Nişan" },
+                    { "key": "findings", "value": "Bulgular" },
+                    { "key": "happily", "value": "Mutlu bir şekilde" },
+                    { "key": "happiness", "value": "Mutluluk" },
+                    { "key": "learn", "value": "Öğrenmek" },
+                    { "key": "likely", "value": "Muhtemel" },
+                    { "key": "meet", "value": "Buluşmak" },
+                    { "key": "over time", "value": "Zaman içinde" },
+                    { "key": "principle", "value": "Prensip" },
+                    { "key": "rate", "value": "Oran, hız" },
+                    { "key": "regular", "value": "Düzenli" },
+                    { "key": "rely on", "value": "Güvenmek, bel bağlamak" },
+                    { "key": "sense", "value": "His, duyu" },
+                    { "key": "share", "value": "Paylaşmak" },
+                    { "key": "strongly", "value": "Güçlü bir şekilde" },
+                    { "key": "such", "value": "Böyle, bu tür" },
+                    { "key": "support", "value": "Destek" },
+                    { "key": "thoughtful", "value": "Düşünceli" },
+                    { "key": "uncertainty", "value": "Belirsizlik" },
+                    { "key": "usually", "value": "Genellikle" },
+                    { "key": "values", "value": "Değerler" },
+                    { "key": "whereas", "value": "Oysa ki" },
+                    { "key": "affectionate", "value": "Şefkatli, sevgi dolu" },
+                    { "key": "annoyed", "value": "Kızgın, sinirlenmiş" },
+                    { "key": "apply", "value": "Başvurmak, uygulamak" },
+                    { "key": "arrange", "value": "Düzenlemek" },
+                    { "key": "calmly", "value": "Sakince" },
+                    { "key": "date", "value": "Buluşma, tarih" },
+                    { "key": "dating site", "value": "Arkadaşlık sitesi" },
+                    { "key": "divorced", "value": "Boşanmış" },
+                    { "key": "easy-going", "value": "Kolay anlaşılır, sakin" },
+                    { "key": "flatmate", "value": "Ev arkadaşı" },
+                    { "key": "forced", "value": "Zorlanmış" },
+                    { "key": "future", "value": "Gelecek" },
+                    { "key": "gentle", "value": "Nazik, kibar" },
+                    { "key": "honest", "value": "Dürüst" },
+                    { "key": "open", "value": "Açık, net" },
+                    { "key": "reliable", "value": "Güvenilir" },
+                    { "key": "right", "value": "Doğru, hak" },
+                    { "key": "sensitive", "value": "Hassas" },
+                    { "key": "successful", "value": "Başarılı" },
+                    { "key": "sympathetic", "value": "İlgi gösteren, anlayışlı" },
+                    { "key": "truth", "value": "Gerçek, hakikat" },
+                    { "key": "type", "value": "Tür, tip" },
+                    { "key": "upset", "value": "Üzgün, moralsız" },
+                    { "key": "fix", "value": "Tamir etmek, düzeltmek" },
+                    { "key": "free of charge", "value": "Ücretsiz" },
+                    { "key": "housework", "value": "Ev işleri" },
+                    { "key": "rent", "value": "Kiralamak" },
+                    { "key": "salary", "value": "Maaş" },
+                    { "key": "share", "value": "Paylaşmak" },
+                    { "key": "graphic design", "value": "Grafik tasarım" },
+                    { "key": "applicant", "value": "Başvuran kişi" },
+                    { "key": "apply", "value": "Başvurmak" },
+                    { "key": "audition", "value": "Seçme, deneme" },
+                    { "key": "chance", "value": "Şans, olasılık" },
+                    { "key": "CV", "value": "Özgeçmiş" },
+                    { "key": "dish", "value": "Yemek" },
+                    { "key": "enthusiastic", "value": "Hevesli" },
+                    { "key": "film", "value": "Film çekmek" },
+                    { "key": "impression", "value": "İzlenim" },
+                    { "key": "panel", "value": "Kurul, heyet" },
+                    { "key": "patiently", "value": "Sabırla" },
+                    { "key": "statement", "value": "Açıklama, ifade" },
+                    { "key": "agency", "value": "Ajans" },
+                    { "key": "application", "value": "Başvuru" },
+                    { "key": "appropriate", "value": "Uygun" },
+                    { "key": "driving licence", "value": "Ehliyet" },
+                    { "key": "fill in", "value": "Doldurmak" },
+                    { "key": "form", "value": "Form" },
+                    { "key": "interviewer", "value": "Mülakat yapan kişi" },
+                    { "key": "log on", "value": "Oturum açmak" },
+                    { "key": "mistake", "value": "Hata" },
+                    { "key": "part-time", "value": "Yarı zamanlı" },
+                    { "key": "recruitment", "value": "İstihdam" },
+                    { "key": "suit", "value": "Takım elbise" },
+                    { "key": "ability", "value": "Yetenek" },
+                    { "key": "grow up", "value": "Büyümek" },
+                    { "key": "hot", "value": "Sıcak" },
+                    { "key": "look after", "value": "Bakmak, ilgilenmek" },
+                    { "key": "media", "value": "Medya" },
+                    { "key": "night school", "value": "Akşam okulu" },
+                    { "key": "orphan", "value": "Yetim" },
+                    { "key": "politician", "value": "Politikacı" },
+                    { "key": "poor", "value": "Yoksul" },
+                    { "key": "prefer", "value": "Tercih etmek" },
+                    { "key": "single", "value": "Tek, yalnız" },
+                    { "key": "specialise", "value": "Uzmanlaşmak" },
+                    { "key": "success", "value": "Başarı" },
+                    { "key": "unknown", "value": "Bilinmeyen" },
+                    { "key": "bandana", "value": "Başörtüsü, bandana" },
+                    { "key": "define", "value": "Tanımlamak" },
+                    { "key": "fedora", "value": "Feltre şapka, fedora" },
+                    { "key": "flared", "value": "Geniş paçalı" },
+                    { "key": "free", "value": "Özgür, bedava" },
+                    { "key": "anime", "value": "Anime (Japon çizgi film)" },
+                    { "key": "movement", "value": "Hareket, akım" },
+                    { "key": "access", "value": "Erişim" },
+                    { "key": "date of birth", "value": "Doğum tarihi" },
+                    { "key": "degree", "value": "Derece, lisans" },
+                    { "key": "hide", "value": "Saklamak, gizlemek" },
+                    { "key": "ink", "value": "Mürekkep" },
+                    { "key": "lie", "value": "Yalan" },
+                    { "key": "romantic", "value": "Romantik" },
+                    { "key": "excellent", "value": "Mükemmel, olağanüstü" },
+                    { "key": "sportsperson", "value": "Sporcu" },
+                    { "key": "strong", "value": "Güçlü" }
+                ]
+
+
+
+
+
+            document.getElementById("div").style.display = "inline";
+            document.getElementsByClassName("container")[1].style.display = "none";
+            randomKelime = Math.floor(Math.random() * data.length);
+            randomNo = Math.floor(Math.random() * 6);
+            kelime.innerHTML = data[randomKelime].key;
+            buton[randomNo].innerText = data[randomKelime].value;
+
+            for (let i = 0; i < buton.length; i++) {
+                if (i == randomNo) {
+                    continue;
+                }
+                butonRandomKelime = Math.floor(Math.random() * data2.length);
+                buton[i].innerText = data2[butonRandomKelime].value;
+            }
+            document.querySelector("span").innerText = data.length + yanlislar.length;
+            secenek();
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

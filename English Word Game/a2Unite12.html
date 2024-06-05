@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ünite 5 kelimeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* position: relative; */
+
+        }
+
+        #kelime-container,
+        #kelime-container2 {
+            background-color: #16b766;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        #kelime,
+        #kelime2 {
+            color: white;
+            width: 250px;
+            text-align: center;
+
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+        }
+
+        button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: large;
+            box-shadow: 0 10px 20px rgb(27, 28, 27);
+
+
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h3 {
+            color: #c8ff00;
+            background-color: rgb(43, 110, 110);
+            border-radius: 5px;
+            width: 125px;
+            text-align: center;
+            margin-left: 125px;
+            position: absolute;
+            top: 138px;
+            right: 55px;
+        }
+
+        h4 {
+            background-color: #393e28;
+            width: 230px;
+            padding: 15px;
+            border-radius: 25px;
+            color: #c8ff00;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        .numbers {
+
+            background-color: #c8ff00;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+
+
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        #scors {
+            background-color: rgb(239, 16, 16);
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            background-color: bisque;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .skor {
+            margin-left: 10px;
+            color: aqua;
+            background-color: rgb(78, 49, 7);
+            padding: 5px 10px;
+            border-radius: 5px;
+
+        }
+
+        #div {
+            position: relative;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #393e28;">
+
+    <div id="div">
+        <h3 style=" z-index: 1;
+    background-color:burlywood;
+    color:blue;
+    margin-left: 0px;
+        top: 0px;
+        right: 260px;
+
+    " id="anaSayfa" onclick="anaSayfa()">Ana Sayfa</h3>
+        <div class="container">
+
+            <div id="kelime-container">
+                <h1 id="kelime">Apple</h1>
+                <h3>kalan <span>75</span></h3>
+            </div>
+            <div class="options">
+                <button onclick="secenek(0)">Apple</button>
+                <button onclick="secenek(1)">Banana</button>
+                <button onclick="secenek(2)">Orange</button>
+                <button onclick="secenek(3)">Grape</button>
+                <button onclick="secenek(4)">Pineapple</button>
+                <button onclick="secenek(5)">Watermelon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="kelime-container2">
+            <h1 id="kelime2" style="font-size: 25px;">Tebrikler tüm kelimeleri başarıyla bildiniz</h1>
+        </div>
+        <h4>Toplam 35 hata yaptınız</h4>
+        <div style="background-color:aqua; margin-left: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 19px;      
+        width: 125px;  
+        " onclick="replay()">Yeniden Oyna</div>
+        <div id="scors">
+            <table>
+                <h2>En Yüksek Skorlar</h2>
+                <tr>
+                    <td>
+                        <a class="numbers">1</a> <a class="skor">3 Hata</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="numbers">2</a> <a class="skor">Yetersiz Oyun</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a class="numbers">3</a> <a class="skor">3 Hata</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function anaSayfa() {
+            window.location.href = "index.html";
+        }
+        console.log(Object.values(localStorage));
+        console.log(Object.keys(localStorage));
+        let correctSound = new Audio("media/success.mp3");
+        document.getElementsByClassName("container")[1].style.display = "none";
+        let falseSound = new Audio("media/error.mp3");
+        falseSound.volume = 0.1
+        let data =
+            [
+                { "key": "amount", "value": "miktar" },
+                { "key": "available", "value": "mevcut" },
+                { "key": "big business", "value": "büyük işletme" },
+                { "key": "brand", "value": "marka" },
+                { "key": "classic", "value": "klasik" },
+                { "key": "clear", "value": "açık, net" },
+                { "key": "electronics", "value": "elektronik" },
+                { "key": "excitement", "value": "heyecan" },
+                { "key": "eye-catching", "value": "göz alıcı" },
+                { "key": "grammatical", "value": "dilbilgisel" },
+                { "key": "guarantee", "value": "garanti" },
+                { "key": "immediately", "value": "hemen" },
+                { "key": "increase", "value": "artmak, artış" },
+                { "key": "indicate", "value": "işaret etmek" },
+                { "key": "knowledge", "value": "bilgi" },
+                { "key": "logo", "value": "logo" },
+                { "key": "memorable", "value": "unutulmaz" },
+                { "key": "message", "value": "mesaj" },
+                { "key": "mineral water", "value": "maden suyu" },
+                { "key": "nature", "value": "doğa" },
+                { "key": "novel", "value": "roman" },
+                { "key": "origin", "value": "köken" },
+                { "key": "passion", "value": "tutku" },
+                { "key": "popularity", "value": "popülerlik" },
+                { "key": "product placement", "value": "ürün yerleştirme" },
+                { "key": "prove", "value": "kanıtlamak" },
+                { "key": "purity", "value": "saflık" },
+                { "key": "quietness", "value": "sessizlik" },
+                { "key": "record", "value": "kayıt" },
+                { "key": "represent", "value": "temsil etmek" },
+                { "key": "sales", "value": "satış" },
+                { "key": "signify", "value": "anlamına gelmek" },
+                { "key": "simplicity", "value": "basitlik" },
+                { "key": "spelling", "value": "yazım" },
+                { "key": "support", "value": "destek" },
+                { "key": "surprising", "value": "şaşırtıcı" },
+                { "key": "unpopular", "value": "popüler olmayan" },
+                { "key": "accessory", "value": "aksesuar" },
+                { "key": "bar", "value": "bar" },
+                { "key": "divide", "value": "bölmek" },
+                { "key": "electronic mail", "value": "e-posta" },
+                { "key": "goddess", "value": "tanrıça" },
+                { "key": "goods", "value": "mal" },
+                { "key": "meaning", "value": "anlam" },
+                { "key": "mention", "value": "bahsetmek" },
+                { "key": "original", "value": "orijinal" },
+                { "key": "pastry", "value": "hamur işi" },
+                { "key": "recognise", "value": "tanımak" },
+                { "key": "soft drink", "value": "gazlı içecek" },
+                { "key": "sportswear", "value": "spor giyim" },
+                { "key": "victory", "value": "zafer" },
+                { "key": "worldwide", "value": "dünya çapında" },
+                { "key": "advertise", "value": "reklam yapmak" },
+                { "key": "aftershave", "value": "tıraş sonrası losyon" },
+                { "key": "bracelet", "value": "bilezik" },
+                { "key": "comb", "value": "tarak" },
+                { "key": "cosmetics", "value": "kozmetik ürünler" },
+                { "key": "deodorant", "value": "deodorant" },
+                { "key": "eyeliner", "value": "göz kalemi" },
+                { "key": "gel", "value": "jel" },
+                { "key": "hairbrush", "value": "saç fırçası" },
+                { "key": "moisturiser", "value": "nemlendirici" },
+                { "key": "nail varnish", "value": "oje" },
+                { "key": "necklace", "value": "kolye" },
+                { "key": "razor", "value": "jilet" },
+                { "key": "shaving foam", "value": "tıraş köpüğü" },
+                { "key": "toiletries", "value": "tuvalet malzemeleri" },
+                { "key": "ancient", "value": "antik" },
+                { "key": "ballpoint pen", "value": "tükenmez kalem" },
+                { "key": "billionaire", "value": "milyarder" },
+                { "key": "campaign", "value": "kampanya" },
+                { "key": "cigarette", "value": "sigara" },
+                { "key": "disposable", "value": "tek kullanımlık" },
+                { "key": "DVD player", "value": "DVD oynatıcı" },
+                { "key": "feature", "value": "özellik" },
+                { "key": "launch", "value": "piyasaya sürmek" },
+                { "key": "manufacture", "value": "üretmek" },
+                { "key": "showing", "value": "gösterim" },
+                { "key": "sportsman", "value": "sporcu" },
+                { "key": "star", "value": "yıldız" },
+                { "key": "well-known", "value": "tanınmış" },
+                { "key": "worth", "value": "değer" },
+                { "key": "yacht", "value": "yat" },
+                { "key": "aim", "value": "amaç" },
+                { "key": "desperately", "value": "umutsuzca" },
+                { "key": "invest", "value": "yatırım yapmak" },
+                { "key": "investment", "value": "yatırım" },
+                { "key": "market", "value": "pazar" },
+                { "key": "present", "value": "sunmak" },
+                { "key": "recipe", "value": "tarif" },
+                { "key": "sauce", "value": "sos" },
+                { "key": "series", "value": "dizi" },
+                { "key": "target", "value": "hedef" },
+                { "key": "fizzy", "value": "gazlı" },
+                { "key": "gadget", "value": "alet" },
+                { "key": "test", "value": "test etmek" },
+                { "key": "shop assistant", "value": "mağaza görevlisi" },
+                { "key": "canvas", "value": "tuval" },
+                { "key": "consumer", "value": "tüketici" },
+                { "key": "disappoint", "value": "hayal kırıklığına uğratmak" },
+                { "key": "dry", "value": "kurumak" },
+                { "key": "dryer", "value": "kurutucu" },
+                { "key": "hairdryer", "value": "saç kurutma makinesi" },
+                { "key": "headphones", "value": "kulaklık" },
+                { "key": "highly", "value": "oldukça" },
+                { "key": "ideal", "value": "ideal" },
+                { "key": "powerful", "value": "güçlü" },
+                { "key": "quickly", "value": "hızlıca" },
+                { "key": "reasonable", "value": "makul" },
+                { "key": "recommend", "value": "tavsiye etmek" },
+                { "key": "swimwear", "value": "mayo" },
+                { "key": "technical support", "value": "teknik destek" },
+                { "key": "value for money", "value": "fiyat/performans oranı" },
+                { "key": "well-designed", "value": "iyi tasarlanmış" },
+                { "key": "arrest", "value": "tutuklamak" },
+                { "key": "bite", "value": "ısırmak" },
+                { "key": "damage", "value": "zarar vermek" },
+                { "key": "feed", "value": "beslemek" },
+                { "key": "garden party", "value": "bahçe partisi" },
+                { "key": "import", "value": "ithal etmek" },
+                { "key": "blade", "value": "bıçak" },
+                { "key": "Grand Prix", "value": "büyük ödül yarışı" },
+                { "key": "penicillin", "value": "penisilin" },
+                { "key": "pull down", "value": "yıkmak" },
+                { "key": "racing driver", "value": "yarış sürücüsü" },
+                { "key": "seat belt", "value": "emniyet kemeri" },
+                { "key": "tea bag", "value": "çay poşeti" },
+                { "key": "best-seller", "value": "çok satan" },
+                { "key": "make", "value": "yapmak" },
+                { "key": "plain", "value": "sade" },
+                { "key": "previously", "value": "önceden" },
+                { "key": "totally", "value": "tamamen" },
+                { "key": "unhealthy", "value": "sağlıksız" },
+                { "key": "unnatural", "value": "doğal olmayan" },
+                { "key": "vitamin", "value": "vitamin" },
+                { "key": "age group", "value": "yaş grubu" },
+                { "key": "flavour", "value": "lezzet" },
+                { "key": "packaging", "value": "ambalaj" },
+                { "key": "summary", "value": "özet" },
+                { "key": "winner", "value": "kazanan" }
+            ]
+
+
+
+        let data2 =
+            [
+                { "key": "amount", "value": "miktar" },
+                { "key": "available", "value": "mevcut" },
+                { "key": "big business", "value": "büyük işletme" },
+                { "key": "brand", "value": "marka" },
+                { "key": "classic", "value": "klasik" },
+                { "key": "clear", "value": "açık, net" },
+                { "key": "electronics", "value": "elektronik" },
+                { "key": "excitement", "value": "heyecan" },
+                { "key": "eye-catching", "value": "göz alıcı" },
+                { "key": "grammatical", "value": "dilbilgisel" },
+                { "key": "guarantee", "value": "garanti" },
+                { "key": "immediately", "value": "hemen" },
+                { "key": "increase", "value": "artmak, artış" },
+                { "key": "indicate", "value": "işaret etmek" },
+                { "key": "knowledge", "value": "bilgi" },
+                { "key": "logo", "value": "logo" },
+                { "key": "memorable", "value": "unutulmaz" },
+                { "key": "message", "value": "mesaj" },
+                { "key": "mineral water", "value": "maden suyu" },
+                { "key": "nature", "value": "doğa" },
+                { "key": "novel", "value": "roman" },
+                { "key": "origin", "value": "köken" },
+                { "key": "passion", "value": "tutku" },
+                { "key": "popularity", "value": "popülerlik" },
+                { "key": "product placement", "value": "ürün yerleştirme" },
+                { "key": "prove", "value": "kanıtlamak" },
+                { "key": "purity", "value": "saflık" },
+                { "key": "quietness", "value": "sessizlik" },
+                { "key": "record", "value": "kayıt" },
+                { "key": "represent", "value": "temsil etmek" },
+                { "key": "sales", "value": "satış" },
+                { "key": "signify", "value": "anlamına gelmek" },
+                { "key": "simplicity", "value": "basitlik" },
+                { "key": "spelling", "value": "yazım" },
+                { "key": "support", "value": "destek" },
+                { "key": "surprising", "value": "şaşırtıcı" },
+                { "key": "unpopular", "value": "popüler olmayan" },
+                { "key": "accessory", "value": "aksesuar" },
+                { "key": "bar", "value": "bar" },
+                { "key": "divide", "value": "bölmek" },
+                { "key": "electronic mail", "value": "e-posta" },
+                { "key": "goddess", "value": "tanrıça" },
+                { "key": "goods", "value": "mal" },
+                { "key": "meaning", "value": "anlam" },
+                { "key": "mention", "value": "bahsetmek" },
+                { "key": "original", "value": "orijinal" },
+                { "key": "pastry", "value": "hamur işi" },
+                { "key": "recognise", "value": "tanımak" },
+                { "key": "soft drink", "value": "gazlı içecek" },
+                { "key": "sportswear", "value": "spor giyim" },
+                { "key": "victory", "value": "zafer" },
+                { "key": "worldwide", "value": "dünya çapında" },
+                { "key": "advertise", "value": "reklam yapmak" },
+                { "key": "aftershave", "value": "tıraş sonrası losyon" },
+                { "key": "bracelet", "value": "bilezik" },
+                { "key": "comb", "value": "tarak" },
+                { "key": "cosmetics", "value": "kozmetik ürünler" },
+                { "key": "deodorant", "value": "deodorant" },
+                { "key": "eyeliner", "value": "göz kalemi" },
+                { "key": "gel", "value": "jel" },
+                { "key": "hairbrush", "value": "saç fırçası" },
+                { "key": "moisturiser", "value": "nemlendirici" },
+                { "key": "nail varnish", "value": "oje" },
+                { "key": "necklace", "value": "kolye" },
+                { "key": "razor", "value": "jilet" },
+                { "key": "shaving foam", "value": "tıraş köpüğü" },
+                { "key": "toiletries", "value": "tuvalet malzemeleri" },
+                { "key": "ancient", "value": "antik" },
+                { "key": "ballpoint pen", "value": "tükenmez kalem" },
+                { "key": "billionaire", "value": "milyarder" },
+                { "key": "campaign", "value": "kampanya" },
+                { "key": "cigarette", "value": "sigara" },
+                { "key": "disposable", "value": "tek kullanımlık" },
+                { "key": "DVD player", "value": "DVD oynatıcı" },
+                { "key": "feature", "value": "özellik" },
+                { "key": "launch", "value": "piyasaya sürmek" },
+                { "key": "manufacture", "value": "üretmek" },
+                { "key": "showing", "value": "gösterim" },
+                { "key": "sportsman", "value": "sporcu" },
+                { "key": "star", "value": "yıldız" },
+                { "key": "well-known", "value": "tanınmış" },
+                { "key": "worth", "value": "değer" },
+                { "key": "yacht", "value": "yat" },
+                { "key": "aim", "value": "amaç" },
+                { "key": "desperately", "value": "umutsuzca" },
+                { "key": "invest", "value": "yatırım yapmak" },
+                { "key": "investment", "value": "yatırım" },
+                { "key": "market", "value": "pazar" },
+                { "key": "present", "value": "sunmak" },
+                { "key": "recipe", "value": "tarif" },
+                { "key": "sauce", "value": "sos" },
+                { "key": "series", "value": "dizi" },
+                { "key": "target", "value": "hedef" },
+                { "key": "fizzy", "value": "gazlı" },
+                { "key": "gadget", "value": "alet" },
+                { "key": "test", "value": "test etmek" },
+                { "key": "shop assistant", "value": "mağaza görevlisi" },
+                { "key": "canvas", "value": "tuval" },
+                { "key": "consumer", "value": "tüketici" },
+                { "key": "disappoint", "value": "hayal kırıklığına uğratmak" },
+                { "key": "dry", "value": "kurumak" },
+                { "key": "dryer", "value": "kurutucu" },
+                { "key": "hairdryer", "value": "saç kurutma makinesi" },
+                { "key": "headphones", "value": "kulaklık" },
+                { "key": "highly", "value": "oldukça" },
+                { "key": "ideal", "value": "ideal" },
+                { "key": "powerful", "value": "güçlü" },
+                { "key": "quickly", "value": "hızlıca" },
+                { "key": "reasonable", "value": "makul" },
+                { "key": "recommend", "value": "tavsiye etmek" },
+                { "key": "swimwear", "value": "mayo" },
+                { "key": "technical support", "value": "teknik destek" },
+                { "key": "value for money", "value": "fiyat/performans oranı" },
+                { "key": "well-designed", "value": "iyi tasarlanmış" },
+                { "key": "arrest", "value": "tutuklamak" },
+                { "key": "bite", "value": "ısırmak" },
+                { "key": "damage", "value": "zarar vermek" },
+                { "key": "feed", "value": "beslemek" },
+                { "key": "garden party", "value": "bahçe partisi" },
+                { "key": "import", "value": "ithal etmek" },
+                { "key": "blade", "value": "bıçak" },
+                { "key": "Grand Prix", "value": "büyük ödül yarışı" },
+                { "key": "penicillin", "value": "penisilin" },
+                { "key": "pull down", "value": "yıkmak" },
+                { "key": "racing driver", "value": "yarış sürücüsü" },
+                { "key": "seat belt", "value": "emniyet kemeri" },
+                { "key": "tea bag", "value": "çay poşeti" },
+                { "key": "best-seller", "value": "çok satan" },
+                { "key": "make", "value": "yapmak" },
+                { "key": "plain", "value": "sade" },
+                { "key": "previously", "value": "önceden" },
+                { "key": "totally", "value": "tamamen" },
+                { "key": "unhealthy", "value": "sağlıksız" },
+                { "key": "unnatural", "value": "doğal olmayan" },
+                { "key": "vitamin", "value": "vitamin" },
+                { "key": "age group", "value": "yaş grubu" },
+                { "key": "flavour", "value": "lezzet" },
+                { "key": "packaging", "value": "ambalaj" },
+                { "key": "summary", "value": "özet" },
+                { "key": "winner", "value": "kazanan" }
+            ]
+
+
+
+        let yanlislar = [];
+        let toplamHata = 0;
+
+
+
+        let butonRandomKelime = 0;
+        let buton = document.querySelectorAll("button");
+        let kelime = document.querySelector("#kelime");
+        let skors = document.getElementsByClassName("skor");
+
+        document.querySelector("span").innerText = data.length;
+        let randomKelime = Math.floor(Math.random() * data.length);
+        let randomNo = Math.floor(Math.random() * 6);
+        kelime.innerHTML = data[randomKelime].key;
+        buton[randomNo].innerText = data[randomKelime].value;
+        for (let i = 0; i < buton.length; i++) {
+            if (i == randomNo) {
+                continue;
+            }
+            butonRandomKelime = Math.floor(Math.random() * data2.length);
+            buton[i].innerText = data2[butonRandomKelime].value;
+        }
+
+        function secenek(no) {
+
+            correctSound.currentTime = 0.0;
+            falseSound.currentTime = 0.0;
+            if (buton[no].innerText == buton[randomNo].innerText) {
+                data.splice(randomKelime, 1)
+
+                if (data.length == 0) {
+                    if (data.length + yanlislar.length == 0) {
+                        document.getElementById("div").style.display = "none";
+                        document.getElementsByClassName("container")[1].style.display = "inline";
+                        document.querySelector("h4").innerText = "Toplam " + toplamHata + " hata yaptınız";
+                        let lokalSkorlar = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            if (Object.keys(localStorage)[i].includes("a2Unite12")) {
+                                lokalSkorlar.push(Number(Object.values(localStorage)[i]))
+                            }
+                        }
+                        localStorage.setItem("a2Unite12No" + lokalSkorlar.length, toplamHata);
+                        lokalSkorlar.push(localStorage.getItem("a2Unite12No" + lokalSkorlar.length))
+                        toplamHata = 0;
+                        if (lokalSkorlar.length == 1) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = "Yetersiz Oyun";
+                            skors[0].innerText = lokalSkorlar[0] + " Hata"
+                        }
+                        else if (lokalSkorlar.length == 2) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = Math.max(...lokalSkorlar) + " Hata";
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                        }
+                        else {
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            let index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[1].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[2].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar = [];
+                        }
+                    }
+                    else {
+                        data = [];
+                        for (let i = 0; i < yanlislar.length; i++) {
+                            data.push({ key: yanlislar[i].key, value: yanlislar[i].value })
+                        }
+
+                        yanlislar = [];
+                        console.log(data);
+                    }
+
+
+                }
+                buton.forEach(element => {
+                    element.style.backgroundColor = "#c8ff00";
+                });
+                falseSound.pause();
+
+                correctSound.play();
+                randomKelime = Math.floor(Math.random() * data.length);
+                randomNo = Math.floor(Math.random() * 6);
+                kelime.innerHTML = data[randomKelime].key;
+                buton[randomNo].innerText = data[randomKelime].value;
+
+                for (let i = 0; i < buton.length; i++) {
+                    if (i == randomNo) {
+                        continue;
+                    }
+                    butonRandomKelime = Math.floor(Math.random() * data2.length);
+                    buton[i].innerText = data2[butonRandomKelime].value;
+                }
+                document.querySelector("span").innerText = data.length + yanlislar.length;
+
+
+            }
+            else {
+                toplamHata++;
+
+                correctSound.pause();
+                falseSound.play();
+                buton[no].style.backgroundColor = "red";
+                if (yanlislar.length == 0 || yanlislar[yanlislar.length - 1].key != data[randomKelime].key) {
+                    yanlislar.push({ key: data[randomKelime].key, value: data[randomKelime].value });
+                }
+
+            }
+
+        }
+
+
+        function replay() {
+            data =
+                [
+                    { "key": "amount", "value": "miktar" },
+                    { "key": "available", "value": "mevcut" },
+                    { "key": "big business", "value": "büyük işletme" },
+                    { "key": "brand", "value": "marka" },
+                    { "key": "classic", "value": "klasik" },
+                    { "key": "clear", "value": "açık, net" },
+                    { "key": "electronics", "value": "elektronik" },
+                    { "key": "excitement", "value": "heyecan" },
+                    { "key": "eye-catching", "value": "göz alıcı" },
+                    { "key": "grammatical", "value": "dilbilgisel" },
+                    { "key": "guarantee", "value": "garanti" },
+                    { "key": "immediately", "value": "hemen" },
+                    { "key": "increase", "value": "artmak, artış" },
+                    { "key": "indicate", "value": "işaret etmek" },
+                    { "key": "knowledge", "value": "bilgi" },
+                    { "key": "logo", "value": "logo" },
+                    { "key": "memorable", "value": "unutulmaz" },
+                    { "key": "message", "value": "mesaj" },
+                    { "key": "mineral water", "value": "maden suyu" },
+                    { "key": "nature", "value": "doğa" },
+                    { "key": "novel", "value": "roman" },
+                    { "key": "origin", "value": "köken" },
+                    { "key": "passion", "value": "tutku" },
+                    { "key": "popularity", "value": "popülerlik" },
+                    { "key": "product placement", "value": "ürün yerleştirme" },
+                    { "key": "prove", "value": "kanıtlamak" },
+                    { "key": "purity", "value": "saflık" },
+                    { "key": "quietness", "value": "sessizlik" },
+                    { "key": "record", "value": "kayıt" },
+                    { "key": "represent", "value": "temsil etmek" },
+                    { "key": "sales", "value": "satış" },
+                    { "key": "signify", "value": "anlamına gelmek" },
+                    { "key": "simplicity", "value": "basitlik" },
+                    { "key": "spelling", "value": "yazım" },
+                    { "key": "support", "value": "destek" },
+                    { "key": "surprising", "value": "şaşırtıcı" },
+                    { "key": "unpopular", "value": "popüler olmayan" },
+                    { "key": "accessory", "value": "aksesuar" },
+                    { "key": "bar", "value": "bar" },
+                    { "key": "divide", "value": "bölmek" },
+                    { "key": "electronic mail", "value": "e-posta" },
+                    { "key": "goddess", "value": "tanrıça" },
+                    { "key": "goods", "value": "mal" },
+                    { "key": "meaning", "value": "anlam" },
+                    { "key": "mention", "value": "bahsetmek" },
+                    { "key": "original", "value": "orijinal" },
+                    { "key": "pastry", "value": "hamur işi" },
+                    { "key": "recognise", "value": "tanımak" },
+                    { "key": "soft drink", "value": "gazlı içecek" },
+                    { "key": "sportswear", "value": "spor giyim" },
+                    { "key": "victory", "value": "zafer" },
+                    { "key": "worldwide", "value": "dünya çapında" },
+                    { "key": "advertise", "value": "reklam yapmak" },
+                    { "key": "aftershave", "value": "tıraş sonrası losyon" },
+                    { "key": "bracelet", "value": "bilezik" },
+                    { "key": "comb", "value": "tarak" },
+                    { "key": "cosmetics", "value": "kozmetik ürünler" },
+                    { "key": "deodorant", "value": "deodorant" },
+                    { "key": "eyeliner", "value": "göz kalemi" },
+                    { "key": "gel", "value": "jel" },
+                    { "key": "hairbrush", "value": "saç fırçası" },
+                    { "key": "moisturiser", "value": "nemlendirici" },
+                    { "key": "nail varnish", "value": "oje" },
+                    { "key": "necklace", "value": "kolye" },
+                    { "key": "razor", "value": "jilet" },
+                    { "key": "shaving foam", "value": "tıraş köpüğü" },
+                    { "key": "toiletries", "value": "tuvalet malzemeleri" },
+                    { "key": "ancient", "value": "antik" },
+                    { "key": "ballpoint pen", "value": "tükenmez kalem" },
+                    { "key": "billionaire", "value": "milyarder" },
+                    { "key": "campaign", "value": "kampanya" },
+                    { "key": "cigarette", "value": "sigara" },
+                    { "key": "disposable", "value": "tek kullanımlık" },
+                    { "key": "DVD player", "value": "DVD oynatıcı" },
+                    { "key": "feature", "value": "özellik" },
+                    { "key": "launch", "value": "piyasaya sürmek" },
+                    { "key": "manufacture", "value": "üretmek" },
+                    { "key": "showing", "value": "gösterim" },
+                    { "key": "sportsman", "value": "sporcu" },
+                    { "key": "star", "value": "yıldız" },
+                    { "key": "well-known", "value": "tanınmış" },
+                    { "key": "worth", "value": "değer" },
+                    { "key": "yacht", "value": "yat" },
+                    { "key": "aim", "value": "amaç" },
+                    { "key": "desperately", "value": "umutsuzca" },
+                    { "key": "invest", "value": "yatırım yapmak" },
+                    { "key": "investment", "value": "yatırım" },
+                    { "key": "market", "value": "pazar" },
+                    { "key": "present", "value": "sunmak" },
+                    { "key": "recipe", "value": "tarif" },
+                    { "key": "sauce", "value": "sos" },
+                    { "key": "series", "value": "dizi" },
+                    { "key": "target", "value": "hedef" },
+                    { "key": "fizzy", "value": "gazlı" },
+                    { "key": "gadget", "value": "alet" },
+                    { "key": "test", "value": "test etmek" },
+                    { "key": "shop assistant", "value": "mağaza görevlisi" },
+                    { "key": "canvas", "value": "tuval" },
+                    { "key": "consumer", "value": "tüketici" },
+                    { "key": "disappoint", "value": "hayal kırıklığına uğratmak" },
+                    { "key": "dry", "value": "kurumak" },
+                    { "key": "dryer", "value": "kurutucu" },
+                    { "key": "hairdryer", "value": "saç kurutma makinesi" },
+                    { "key": "headphones", "value": "kulaklık" },
+                    { "key": "highly", "value": "oldukça" },
+                    { "key": "ideal", "value": "ideal" },
+                    { "key": "powerful", "value": "güçlü" },
+                    { "key": "quickly", "value": "hızlıca" },
+                    { "key": "reasonable", "value": "makul" },
+                    { "key": "recommend", "value": "tavsiye etmek" },
+                    { "key": "swimwear", "value": "mayo" },
+                    { "key": "technical support", "value": "teknik destek" },
+                    { "key": "value for money", "value": "fiyat/performans oranı" },
+                    { "key": "well-designed", "value": "iyi tasarlanmış" },
+                    { "key": "arrest", "value": "tutuklamak" },
+                    { "key": "bite", "value": "ısırmak" },
+                    { "key": "damage", "value": "zarar vermek" },
+                    { "key": "feed", "value": "beslemek" },
+                    { "key": "garden party", "value": "bahçe partisi" },
+                    { "key": "import", "value": "ithal etmek" },
+                    { "key": "blade", "value": "bıçak" },
+                    { "key": "Grand Prix", "value": "büyük ödül yarışı" },
+                    { "key": "penicillin", "value": "penisilin" },
+                    { "key": "pull down", "value": "yıkmak" },
+                    { "key": "racing driver", "value": "yarış sürücüsü" },
+                    { "key": "seat belt", "value": "emniyet kemeri" },
+                    { "key": "tea bag", "value": "çay poşeti" },
+                    { "key": "best-seller", "value": "çok satan" },
+                    { "key": "make", "value": "yapmak" },
+                    { "key": "plain", "value": "sade" },
+                    { "key": "previously", "value": "önceden" },
+                    { "key": "totally", "value": "tamamen" },
+                    { "key": "unhealthy", "value": "sağlıksız" },
+                    { "key": "unnatural", "value": "doğal olmayan" },
+                    { "key": "vitamin", "value": "vitamin" },
+                    { "key": "age group", "value": "yaş grubu" },
+                    { "key": "flavour", "value": "lezzet" },
+                    { "key": "packaging", "value": "ambalaj" },
+                    { "key": "summary", "value": "özet" },
+                    { "key": "winner", "value": "kazanan" }
+                ]
+
+
+
+
+            document.getElementById("div").style.display = "inline";
+            document.getElementsByClassName("container")[1].style.display = "none";
+            randomKelime = Math.floor(Math.random() * data.length);
+            randomNo = Math.floor(Math.random() * 6);
+            kelime.innerHTML = data[randomKelime].key;
+            buton[randomNo].innerText = data[randomKelime].value;
+
+            for (let i = 0; i < buton.length; i++) {
+                if (i == randomNo) {
+                    continue;
+                }
+                butonRandomKelime = Math.floor(Math.random() * data2.length);
+                buton[i].innerText = data2[butonRandomKelime].value;
+            }
+            document.querySelector("span").innerText = data.length + yanlislar.length;
+            secenek();
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

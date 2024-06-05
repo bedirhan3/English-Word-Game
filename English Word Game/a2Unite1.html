@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ünite 5 kelimeler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            /* position: relative; */
+
+        }
+
+        #kelime-container,
+        #kelime-container2 {
+            background-color: #16b766;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        #kelime,
+        #kelime2 {
+            color: white;
+            width: 250px;
+            text-align: center;
+
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-gap: 20px;
+        }
+
+        button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: large;
+            box-shadow: 0 10px 20px rgb(27, 28, 27);
+
+
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h3 {
+            color: #c8ff00;
+            background-color: rgb(43, 110, 110);
+            border-radius: 5px;
+            width: 125px;
+            text-align: center;
+            margin-left: 125px;
+            position: absolute;
+            top: 138px;
+            right: 55px;
+        }
+
+        h4 {
+            background-color: #393e28;
+            width: 230px;
+            padding: 15px;
+            border-radius: 25px;
+            color: #c8ff00;
+            font-size: 32px;
+            text-align: center;
+        }
+
+        .numbers {
+
+            background-color: #c8ff00;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+
+
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        #scors {
+            background-color: rgb(239, 16, 16);
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+
+        h2 {
+            background-color: bisque;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .skor {
+            margin-left: 10px;
+            color: aqua;
+            background-color: rgb(78, 49, 7);
+            padding: 5px 10px;
+            border-radius: 5px;
+
+        }
+
+        #div {
+            position: relative;
+            padding-top: 18px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #393e28;">
+
+    <div id="div">
+        <h3 style=" z-index: 1;
+    background-color:burlywood;
+    color:blue;
+    margin-left: 0px;
+        top: 0px;
+        right: 260px;
+
+    " id="anaSayfa" onclick="anaSayfa()">Ana Sayfa</h3>
+        <div class="container">
+
+            <div id="kelime-container">
+                <h1 id="kelime">Apple</h1>
+                <h3>kalan <span>75</span></h3>
+            </div>
+            <div class="options">
+                <button onclick="secenek(0)">Apple</button>
+                <button onclick="secenek(1)">Banana</button>
+                <button onclick="secenek(2)">Orange</button>
+                <button onclick="secenek(3)">Grape</button>
+                <button onclick="secenek(4)">Pineapple</button>
+                <button onclick="secenek(5)">Watermelon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="kelime-container2">
+            <h1 id="kelime2" style="font-size: 25px;">Tebrikler tüm kelimeleri başarıyla bildiniz</h1>
+        </div>
+        <h4>Toplam 35 hata yaptınız</h4>
+        <div style="background-color:aqua; margin-left: 50px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 19px;      
+        width: 125px;  
+        " onclick="replay()">Yeniden Oyna</div>
+        <div id="scors">
+            <table>
+                <h2>En Yüksek Skorlar</h2>
+                <tr>
+                    <td>
+                        <a class="numbers">1</a> <a class="skor">3 Hata</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="numbers">2</a> <a class="skor">Yetersiz Oyun</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a class="numbers">3</a> <a class="skor">3 Hata</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function anaSayfa() {
+            window.location.href = "index.html";
+        }
+        console.log(Object.values(localStorage));
+        console.log(Object.keys(localStorage));
+        let correctSound = new Audio("media/success.mp3");
+        document.getElementsByClassName("container")[1].style.display = "none";
+        let falseSound = new Audio("media/error.mp3");
+        falseSound.volume = 0.1
+        let data = [
+
+            { "key": "activity", "value": "aktivite" },
+            { "key": "cycle", "value": "Bisiklet sürmek" },
+            { "key": "discuss", "value": "Tartışmak" },
+            { "key": "evening class", "value": "Akşam dersi" },
+            { "key": "favourite", "value": "Favori" },
+            { "key": "free time", "value": "Boş zaman" },
+            { "key": "go out", "value": "Dışarı çıkmak" },
+            { "key": "gym", "value": "Fitness salonu" },
+            { "key": "instrument", "value": "Enstrüman" },
+            { "key": "leisure", "value": "Boş zaman" },
+            { "key": "live", "value": "Canlı" },
+            { "key": "news", "value": "Haberler" },
+            { "key": "online", "value": "Çevrim içi" },
+            { "key": "percent", "value": "Yüzde" },
+            { "key": "play", "value": "Oynamak" },
+            { "key": "poll", "value": "Anket" },
+            { "key": "report", "value": "Rapor" },
+            { "key": "result", "value": "Sonuç" },
+            { "key": "spend", "value": "Harcamak" },
+            { "key": "survey", "value": "Anket" },
+            { "key": "channel", "value": "Kanal" },
+            { "key": "classical", "value": "Klasik" },
+            { "key": "important", "value": "Önemli" },
+            { "key": "jazz", "value": "Caz" },
+            { "key": "life", "value": "Hayat" },
+            { "key": "musician", "value": "Müzisyen" },
+            { "key": "professional", "value": "Profesyonel" },
+            { "key": "skill", "value": "Yetenek" },
+            { "key": "studies", "value": "çalışmalar" },
+            { "key": "average", "value": "Ortalama" },
+            { "key": "board", "value": "Tahta" },
+            { "key": "board game", "value": "masa oyunu" },
+            { "key": "card", "value": "Kart" },
+            { "key": "championship", "value": "Şampiyona" },
+            { "key": "chance", "value": "Şans" },
+            { "key": "dice", "value": "Zar" },
+            { "key": "last", "value": "son" },
+            { "key": "made", "value": "Yapılmış" },
+            { "key": "marble", "value": "Mermer" },
+            { "key": "normal", "value": "Normal" },
+            { "key": "originate", "value": "Kaynaklanmak" },
+            { "key": "pack", "value": "Paket" },
+            { "key": "piece", "value": "Parça" },
+            { "key": "place", "value": "Yer" },
+            { "key": "player", "value": "Oyuncu" },
+            { "key": "puzzle", "value": "Bulmaca" },
+            { "key": "score", "value": "Puan" },
+            { "key": "spot", "value": "leke" },
+            { "key": "start", "value": "Başlamak" },
+            { "key": "strategy", "value": "Strateji" },
+            { "key": "exercise", "value": "Egzersiz" },
+            { "key": "fun", "value": "Eğlence" },
+            { "key": "journey", "value": "Yolculuk" },
+            { "key": "local", "value": "Yerel" },
+            { "key": "long", "value": "Uzun" },
+            { "key": "park", "value": "Park" },
+            { "key": "pet", "value": "Evcil hayvan" },
+            { "key": "visit", "value": "Ziyaret" },
+            { "key": "ball", "value": "Top" },
+            { "key": "basket", "value": "Sepet" },
+            { "key": "best-selling", "value": "En çok satan" },
+            { "key": "body", "value": "Vücut" },
+            { "key": "breakdancing", "value": "Break dans" },
+            { "key": "broken", "value": "Kırık" },
+            { "key": "button", "value": "Düğme" },
+            { "key": "century", "value": "Yüzyıl" },
+            { "key": "champion", "value": "Şampiyon" },
+            { "key": "control", "value": "Kontrol" },
+            { "key": "course", "value": "Kurs" },
+            { "key": "dancing", "value": "Dans" },
+            { "key": "disc", "value": "Disk" },
+            { "key": "downside", "value": "Dezavantaj" },
+            { "key": "equipment", "value": "Ekipman" },
+            { "key": "expensive", "value": "Pahalı" },
+            { "key": "freestyle", "value": "Serbest stil" },
+            { "key": "fresh air", "value": "Temiz hava" },
+            { "key": "furniture", "value": "Mobilya" },
+            { "key": "games console", "value": "Oyun konsolu" },
+            { "key": "gaming", "value": "Oyun oynama" },
+            { "key": "goal", "value": "Gol" },
+            { "key": "group", "value": "Grup" },
+            { "key": "hit", "value": "Vurmak" },
+            { "key": "hole", "value": "Delik" },
+            { "key": "injure", "value": "Yaralamak" },
+            { "key": "injury", "value": "Yaralanma" },
+            { "key": "judge", "value": "Hakim" },
+            { "key": "kick", "value": "Tekme atmak" },
+            { "key": "marathon", "value": "Maraton" },
+            { "key": "metal", "value": "Metal" },
+            { "key": "mixture", "value": "Karışım" },
+            { "key": "move", "value": "Hareket" },
+            { "key": "north", "value": "Kuzey" },
+            { "key": "organise", "value": "Düzenlemek" },
+            { "key": "original", "value": "Orijinal" },
+            { "key": "party", "value": "Parti" },
+            { "key": "plastic", "value": "Plastik" },
+            { "key": "press", "value": "Basın" },
+            { "key": "public", "value": "Halk" },
+            { "key": "racket", "value": "Raket" },
+            { "key": "reach", "value": "Ulaşmak" },
+            { "key": "similar", "value": "Benzer" },
+            { "key": "social", "value": "Sosyal" },
+            { "key": "special", "value": "Özel" },
+            { "key": "team", "value": "Takım" },
+            { "key": "throw", "value": "Atmak" },
+            { "key": "winner", "value": "Kazanan" },
+            { "key": "ambassador", "value": "Elçi" },
+            { "key": "calorie", "value": "Kalori" },
+            { "key": "charity", "value": "Hayır kurumu" },
+            { "key": "consume", "value": "Tüketmek" },
+            { "key": "fast food", "value": "Fast food" },
+            { "key": "follower", "value": "Takipçi" },
+            { "key": "goodwill", "value": "İyi niyet" },
+            { "key": "habit", "value": "Alışkanlık" },
+            { "key": "miss", "value": "Kaçırmak" },
+            { "key": "nickname", "value": "Lakap" },
+            { "key": "opera", "value": "Opera" },
+            { "key": "pop", "value": "Pop" },
+            { "key": "record", "value": "Kayıt" },
+            { "key": "sing", "value": "Şarkı söylemek" },
+            { "key": "train", "value": "tren" },
+            { "key": "training", "value": "Eğitim" },
+            { "key": "acting", "value": "Oyunculuk" },
+            { "key": "ambition", "value": "Hırs" },
+            { "key": "bank", "value": "Banka" },
+            { "key": "boarding pass", "value": "Biniş kartı" },
+            { "key": "continue", "value": "Devam etmek" },
+            { "key": "course", "value": "Kurs" },
+            { "key": "possession", "value": "Mülkiyet" },
+            { "key": "prepare", "value": "Hazırlamak" },
+            { "key": "properly", "value": "Doğru bir şekilde" },
+            { "key": "regularly", "value": "Düzenli olarak" },
+            { "key": "rise", "value": "Yükselme" },
+            { "key": "scared", "value": "Korkmuş" },
+            { "key": "stranger", "value": "Yabancı" },
+            { "key": "suitcase", "value": "Bavul" },
+            { "key": "water", "value": "Su" },
+            { "key": "yoga", "value": "Yoga" },
+            { "key": "interested", "value": "İlgili" },
+            { "key": "approximate", "value": "Yaklaşık" },
+            { "key": "community", "value": "Topluluk" },
+            { "key": "league", "value": "Lig" },
+            { "key": "popular", "value": "Popüler" },
+            { "key": "population", "value": "Nüfus" },
+            { "key": "rich", "value": "Zengin" },
+            { "key": "event", "value": "Olay" },
+            { "key": "global", "value": "Küresel" },
+            { "key": "individual", "value": "Birey" },
+            { "key": "international relations", "value": "Uluslararası ilişkiler" },
+            { "key": "money", "value": "Para" },
+            { "key": "understand", "value": "Anlamak" },
+            { "key": "waste", "value": "israf" },
+            { "key": "kitchen", "value": "Mutfak" },
+            { "key": "sort", "value": "Sınıflandırmak" },
+            { "key": "swimming", "value": "Yüzme" },
+            { "key": "cousin", "value": "Kuzen" },
+            { "key": "fly", "value": "Uçmak" },
+            { "key": "age", "value": "Yaş" },
+            { "key": "athlete", "value": "Sporcu" },
+            { "key": "diet", "value": "Diyet" },
+            { "key": "digital", "value": "Dijital" },
+            { "key": "fan", "value": "Hayran" },
+            { "key": "figure skater", "value": "Figür patenci" },
+            { "key": "fit", "value": "Forma girmek" },
+            { "key": "land", "value": "Arazi" },
+            { "key": "medal", "value": "Madalya" },
+            { "key": "star", "value": "Yıldız" },
+            { "key": "victim", "value": "Kurban" }
+        ]
+        let data2 = [
+            { "key": "activity", "value": "aktivite" },
+            { "key": "cycle", "value": "Bisiklet sürmek" },
+            { "key": "discuss", "value": "Tartışmak" },
+            { "key": "evening class", "value": "Akşam dersi" },
+            { "key": "favourite", "value": "Favori" },
+            { "key": "free time", "value": "Boş zaman" },
+            { "key": "go out", "value": "Dışarı çıkmak" },
+            { "key": "gym", "value": "Fitness salonu" },
+            { "key": "instrument", "value": "Enstrüman" },
+            { "key": "leisure", "value": "Boş zaman" },
+            { "key": "live", "value": "Canlı" },
+            { "key": "news", "value": "Haberler" },
+            { "key": "online", "value": "Çevrim içi" },
+            { "key": "percent", "value": "Yüzde" },
+            { "key": "play", "value": "Oynamak" },
+            { "key": "poll", "value": "Anket" },
+            { "key": "report", "value": "Rapor" },
+            { "key": "result", "value": "Sonuç" },
+            { "key": "spend", "value": "Harcamak" },
+            { "key": "survey", "value": "Anket" },
+            { "key": "channel", "value": "Kanal" },
+            { "key": "classical", "value": "Klasik" },
+            { "key": "important", "value": "Önemli" },
+            { "key": "jazz", "value": "Caz" },
+            { "key": "life", "value": "Hayat" },
+            { "key": "musician", "value": "Müzisyen" },
+            { "key": "professional", "value": "Profesyonel" },
+            { "key": "skill", "value": "Yetenek" },
+            { "key": "studies", "value": "çalışmalar" },
+            { "key": "average", "value": "Ortalama" },
+            { "key": "board", "value": "Tahta" },
+            { "key": "board game", "value": "masa oyunu" },
+            { "key": "card", "value": "Kart" },
+            { "key": "championship", "value": "Şampiyona" },
+            { "key": "chance", "value": "Şans" },
+            { "key": "dice", "value": "Zar" },
+            { "key": "last", "value": "son" },
+            { "key": "made", "value": "Yapılmış" },
+            { "key": "marble", "value": "Mermer" },
+            { "key": "normal", "value": "Normal" },
+            { "key": "originate", "value": "Kaynaklanmak" },
+            { "key": "pack", "value": "Paket" },
+            { "key": "piece", "value": "Parça" },
+            { "key": "place", "value": "Yer" },
+            { "key": "player", "value": "Oyuncu" },
+            { "key": "puzzle", "value": "Bulmaca" },
+            { "key": "score", "value": "Puan" },
+            { "key": "spot", "value": "leke" },
+            { "key": "start", "value": "Başlamak" },
+            { "key": "strategy", "value": "Strateji" },
+            { "key": "exercise", "value": "Egzersiz" },
+            { "key": "fun", "value": "Eğlence" },
+            { "key": "journey", "value": "Yolculuk" },
+            { "key": "local", "value": "Yerel" },
+            { "key": "long", "value": "Uzun" },
+            { "key": "park", "value": "Park" },
+            { "key": "pet", "value": "Evcil hayvan" },
+            { "key": "visit", "value": "Ziyaret" },
+            { "key": "ball", "value": "Top" },
+            { "key": "basket", "value": "Sepet" },
+            { "key": "best-selling", "value": "En çok satan" },
+            { "key": "body", "value": "Vücut" },
+            { "key": "breakdancing", "value": "Break dans" },
+            { "key": "broken", "value": "Kırık" },
+            { "key": "button", "value": "Düğme" },
+            { "key": "century", "value": "Yüzyıl" },
+            { "key": "champion", "value": "Şampiyon" },
+            { "key": "control", "value": "Kontrol" },
+            { "key": "course", "value": "Kurs" },
+            { "key": "dancing", "value": "Dans" },
+            { "key": "disc", "value": "Disk" },
+            { "key": "downside", "value": "Dezavantaj" },
+            { "key": "equipment", "value": "Ekipman" },
+            { "key": "expensive", "value": "Pahalı" },
+            { "key": "freestyle", "value": "Serbest stil" },
+            { "key": "fresh air", "value": "Temiz hava" },
+            { "key": "furniture", "value": "Mobilya" },
+            { "key": "games console", "value": "Oyun konsolu" },
+            { "key": "gaming", "value": "Oyun oynama" },
+            { "key": "goal", "value": "Gol" },
+            { "key": "group", "value": "Grup" },
+            { "key": "hit", "value": "Vurmak" },
+            { "key": "hole", "value": "Delik" },
+            { "key": "injure", "value": "Yaralamak" },
+            { "key": "injury", "value": "Yaralanma" },
+            { "key": "judge", "value": "Hakim" },
+            { "key": "kick", "value": "Tekme atmak" },
+            { "key": "marathon", "value": "Maraton" },
+            { "key": "metal", "value": "Metal" },
+            { "key": "mixture", "value": "Karışım" },
+            { "key": "move", "value": "Hareket" },
+            { "key": "north", "value": "Kuzey" },
+            { "key": "organise", "value": "Düzenlemek" },
+            { "key": "original", "value": "Orijinal" },
+            { "key": "party", "value": "Parti" },
+            { "key": "plastic", "value": "Plastik" },
+            { "key": "press", "value": "Basın" },
+            { "key": "public", "value": "Halk" },
+            { "key": "racket", "value": "Raket" },
+            { "key": "reach", "value": "Ulaşmak" },
+            { "key": "similar", "value": "Benzer" },
+            { "key": "social", "value": "Sosyal" },
+            { "key": "special", "value": "Özel" },
+            { "key": "team", "value": "Takım" },
+            { "key": "throw", "value": "Atmak" },
+            { "key": "winner", "value": "Kazanan" },
+            { "key": "ambassador", "value": "Elçi" },
+            { "key": "calorie", "value": "Kalori" },
+            { "key": "charity", "value": "Hayır kurumu" },
+            { "key": "consume", "value": "Tüketmek" },
+            { "key": "fast food", "value": "Fast food" },
+            { "key": "follower", "value": "Takipçi" },
+            { "key": "goodwill", "value": "İyi niyet" },
+            { "key": "habit", "value": "Alışkanlık" },
+            { "key": "miss", "value": "Kaçırmak" },
+            { "key": "nickname", "value": "Lakap" },
+            { "key": "opera", "value": "Opera" },
+            { "key": "pop", "value": "Pop" },
+            { "key": "record", "value": "Kayıt" },
+            { "key": "sing", "value": "Şarkı söylemek" },
+            { "key": "train", "value": "tren" },
+            { "key": "training", "value": "Eğitim" },
+            { "key": "acting", "value": "Oyunculuk" },
+            { "key": "ambition", "value": "Hırs" },
+            { "key": "bank", "value": "Banka" },
+            { "key": "boarding pass", "value": "Biniş kartı" },
+            { "key": "continue", "value": "Devam etmek" },
+            { "key": "course", "value": "Kurs" },
+            { "key": "possession", "value": "Mülkiyet" },
+            { "key": "prepare", "value": "Hazırlamak" },
+            { "key": "properly", "value": "Doğru bir şekilde" },
+            { "key": "regularly", "value": "Düzenli olarak" },
+            { "key": "rise", "value": "Yükselme" },
+            { "key": "scared", "value": "Korkmuş" },
+            { "key": "stranger", "value": "Yabancı" },
+            { "key": "suitcase", "value": "Bavul" },
+            { "key": "water", "value": "Su" },
+            { "key": "yoga", "value": "Yoga" },
+            { "key": "interested", "value": "İlgili" },
+            { "key": "approximate", "value": "Yaklaşık" },
+            { "key": "community", "value": "Topluluk" },
+            { "key": "league", "value": "Lig" },
+            { "key": "popular", "value": "Popüler" },
+            { "key": "population", "value": "Nüfus" },
+            { "key": "rich", "value": "Zengin" },
+            { "key": "event", "value": "Olay" },
+            { "key": "global", "value": "Küresel" },
+            { "key": "individual", "value": "Birey" },
+            { "key": "international relations", "value": "Uluslararası ilişkiler" },
+            { "key": "money", "value": "Para" },
+            { "key": "understand", "value": "Anlamak" },
+            { "key": "waste", "value": "israf" },
+            { "key": "kitchen", "value": "Mutfak" },
+            { "key": "sort", "value": "Sınıflandırmak" },
+            { "key": "swimming", "value": "Yüzme" },
+            { "key": "cousin", "value": "Kuzen" },
+            { "key": "fly", "value": "Uçmak" },
+            { "key": "age", "value": "Yaş" },
+            { "key": "athlete", "value": "Sporcu" },
+            { "key": "diet", "value": "Diyet" },
+            { "key": "digital", "value": "Dijital" },
+            { "key": "fan", "value": "Hayran" },
+            { "key": "figure skater", "value": "Figür patenci" },
+            { "key": "fit", "value": "Forma girmek" },
+            { "key": "land", "value": "Arazi" },
+            { "key": "medal", "value": "Madalya" },
+            { "key": "star", "value": "Yıldız" },
+            { "key": "victim", "value": "Kurban" }
+
+        ]
+        let yanlislar = [];
+        let toplamHata = 0;
+
+
+
+        let butonRandomKelime = 0;
+        let buton = document.querySelectorAll("button");
+        let kelime = document.querySelector("#kelime");
+        let skors = document.getElementsByClassName("skor");
+
+        document.querySelector("span").innerText = data.length;
+        let randomKelime = Math.floor(Math.random() * data.length);
+        let randomNo = Math.floor(Math.random() * 6);
+        kelime.innerHTML = data[randomKelime].key;
+        buton[randomNo].innerText = data[randomKelime].value;
+        for (let i = 0; i < buton.length; i++) {
+            if (i == randomNo) {
+                continue;
+            }
+            butonRandomKelime = Math.floor(Math.random() * data2.length);
+            buton[i].innerText = data2[butonRandomKelime].value;
+        }
+
+        function secenek(no) {
+
+            correctSound.currentTime = 0.0;
+            falseSound.currentTime = 0.0;
+            if (buton[no].innerText == buton[randomNo].innerText) {
+                data.splice(randomKelime, 1)
+
+                if (data.length == 0) {
+                    if (data.length + yanlislar.length == 0) {
+                        document.getElementById("div").style.display = "none";
+                        document.getElementsByClassName("container")[1].style.display = "inline";
+                        document.querySelector("h4").innerText = "Toplam " + toplamHata + " hata yaptınız";
+                        let lokalSkorlar = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            if (Object.keys(localStorage)[i].includes("a2Unite1")) {
+                                lokalSkorlar.push(Number(Object.values(localStorage)[i]))
+                            }
+                        }
+                        localStorage.setItem("a2Unite1No" + lokalSkorlar.length, toplamHata);
+                        lokalSkorlar.push(localStorage.getItem("a2Unite1No" + lokalSkorlar.length))
+                        toplamHata = 0;
+                        if (lokalSkorlar.length == 1) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = "Yetersiz Oyun";
+                            skors[0].innerText = lokalSkorlar[0] + " Hata"
+                        }
+                        else if (lokalSkorlar.length == 2) {
+                            skors[2].innerHTML = "Yetersiz Oyun";
+                            skors[1].innerHTML = Math.max(...lokalSkorlar) + " Hata";
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                        }
+                        else {
+                            skors[0].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            let index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[1].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar.splice(index, 1);
+
+                            skors[2].innerText = Math.min(...lokalSkorlar) + " Hata";
+                            index = lokalSkorlar.indexOf(Math.min(...lokalSkorlar));
+                            lokalSkorlar = [];
+                        }
+                    }
+                    else {
+                        data = [];
+                        for (let i = 0; i < yanlislar.length; i++) {
+                            data.push({ key: yanlislar[i].key, value: yanlislar[i].value })
+                        }
+
+                        yanlislar = [];
+                        console.log(data);
+                    }
+
+
+                }
+                buton.forEach(element => {
+                    element.style.backgroundColor = "#c8ff00";
+                });
+                falseSound.pause();
+
+                correctSound.play();
+                randomKelime = Math.floor(Math.random() * data.length);
+                randomNo = Math.floor(Math.random() * 6);
+                kelime.innerHTML = data[randomKelime].key;
+                buton[randomNo].innerText = data[randomKelime].value;
+
+                for (let i = 0; i < buton.length; i++) {
+                    if (i == randomNo) {
+                        continue;
+                    }
+                    butonRandomKelime = Math.floor(Math.random() * data2.length);
+                    buton[i].innerText = data2[butonRandomKelime].value;
+                }
+                document.querySelector("span").innerText = data.length + yanlislar.length;
+
+
+            }
+            else {
+                toplamHata++;
+
+                correctSound.pause();
+                falseSound.play();
+                buton[no].style.backgroundColor = "red";
+                if (yanlislar.length == 0 || yanlislar[yanlislar.length - 1].key != data[randomKelime].key) {
+                    yanlislar.push({ key: data[randomKelime].key, value: data[randomKelime].value });
+                }
+
+            }
+
+        }
+
+
+        function replay() {
+            data = [
+
+                { "key": "activity", "value": "aktivite" },
+                { "key": "cycle", "value": "Bisiklet sürmek" },
+                { "key": "discuss", "value": "Tartışmak" },
+                { "key": "evening class", "value": "Akşam dersi" },
+                { "key": "favourite", "value": "Favori" },
+                { "key": "free time", "value": "Boş zaman" },
+                { "key": "go out", "value": "Dışarı çıkmak" },
+                { "key": "gym", "value": "Fitness salonu" },
+                { "key": "instrument", "value": "Enstrüman" },
+                { "key": "leisure", "value": "Boş zaman" },
+                { "key": "live", "value": "Canlı" },
+                { "key": "news", "value": "Haberler" },
+                { "key": "online", "value": "Çevrim içi" },
+                { "key": "percent", "value": "Yüzde" },
+                { "key": "play", "value": "Oynamak" },
+                { "key": "poll", "value": "Anket" },
+                { "key": "report", "value": "Rapor" },
+                { "key": "result", "value": "Sonuç" },
+                { "key": "spend", "value": "Harcamak" },
+                { "key": "survey", "value": "Anket" },
+                { "key": "channel", "value": "Kanal" },
+                { "key": "classical", "value": "Klasik" },
+                { "key": "important", "value": "Önemli" },
+                { "key": "jazz", "value": "Caz" },
+                { "key": "life", "value": "Hayat" },
+                { "key": "musician", "value": "Müzisyen" },
+                { "key": "professional", "value": "Profesyonel" },
+                { "key": "skill", "value": "Yetenek" },
+                { "key": "studies", "value": "çalışmalar" },
+                { "key": "average", "value": "Ortalama" },
+                { "key": "board", "value": "Tahta" },
+                { "key": "board game", "value": "masa oyunu" },
+                { "key": "card", "value": "Kart" },
+                { "key": "championship", "value": "Şampiyona" },
+                { "key": "chance", "value": "Şans" },
+                { "key": "dice", "value": "Zar" },
+                { "key": "last", "value": "son" },
+                { "key": "made", "value": "Yapılmış" },
+                { "key": "marble", "value": "Mermer" },
+                { "key": "normal", "value": "Normal" },
+                { "key": "originate", "value": "Kaynaklanmak" },
+                { "key": "pack", "value": "Paket" },
+                { "key": "piece", "value": "Parça" },
+                { "key": "place", "value": "Yer" },
+                { "key": "player", "value": "Oyuncu" },
+                { "key": "puzzle", "value": "Bulmaca" },
+                { "key": "score", "value": "Puan" },
+                { "key": "spot", "value": "leke" },
+                { "key": "start", "value": "Başlamak" },
+                { "key": "strategy", "value": "Strateji" },
+                { "key": "exercise", "value": "Egzersiz" },
+                { "key": "fun", "value": "Eğlence" },
+                { "key": "journey", "value": "Yolculuk" },
+                { "key": "local", "value": "Yerel" },
+                { "key": "long", "value": "Uzun" },
+                { "key": "park", "value": "Park" },
+                { "key": "pet", "value": "Evcil hayvan" },
+                { "key": "visit", "value": "Ziyaret" },
+                { "key": "ball", "value": "Top" },
+                { "key": "basket", "value": "Sepet" },
+                { "key": "best-selling", "value": "En çok satan" },
+                { "key": "body", "value": "Vücut" },
+                { "key": "breakdancing", "value": "Break dans" },
+                { "key": "broken", "value": "Kırık" },
+                { "key": "button", "value": "Düğme" },
+                { "key": "century", "value": "Yüzyıl" },
+                { "key": "champion", "value": "Şampiyon" },
+                { "key": "control", "value": "Kontrol" },
+                { "key": "course", "value": "Kurs" },
+                { "key": "dancing", "value": "Dans" },
+                { "key": "disc", "value": "Disk" },
+                { "key": "downside", "value": "Dezavantaj" },
+                { "key": "equipment", "value": "Ekipman" },
+                { "key": "expensive", "value": "Pahalı" },
+                { "key": "freestyle", "value": "Serbest stil" },
+                { "key": "fresh air", "value": "Temiz hava" },
+                { "key": "furniture", "value": "Mobilya" },
+                { "key": "games console", "value": "Oyun konsolu" },
+                { "key": "gaming", "value": "Oyun oynama" },
+                { "key": "goal", "value": "Gol" },
+                { "key": "group", "value": "Grup" },
+                { "key": "hit", "value": "Vurmak" },
+                { "key": "hole", "value": "Delik" },
+                { "key": "injure", "value": "Yaralamak" },
+                { "key": "injury", "value": "Yaralanma" },
+                { "key": "judge", "value": "Hakim" },
+                { "key": "kick", "value": "Tekme atmak" },
+                { "key": "marathon", "value": "Maraton" },
+                { "key": "metal", "value": "Metal" },
+                { "key": "mixture", "value": "Karışım" },
+                { "key": "move", "value": "Hareket" },
+                { "key": "north", "value": "Kuzey" },
+                { "key": "organise", "value": "Düzenlemek" },
+                { "key": "original", "value": "Orijinal" },
+                { "key": "party", "value": "Parti" },
+                { "key": "plastic", "value": "Plastik" },
+                { "key": "press", "value": "Basın" },
+                { "key": "public", "value": "Halk" },
+                { "key": "racket", "value": "Raket" },
+                { "key": "reach", "value": "Ulaşmak" },
+                { "key": "similar", "value": "Benzer" },
+                { "key": "social", "value": "Sosyal" },
+                { "key": "special", "value": "Özel" },
+                { "key": "team", "value": "Takım" },
+                { "key": "throw", "value": "Atmak" },
+                { "key": "winner", "value": "Kazanan" },
+                { "key": "ambassador", "value": "Elçi" },
+                { "key": "calorie", "value": "Kalori" },
+                { "key": "charity", "value": "Hayır kurumu" },
+                { "key": "consume", "value": "Tüketmek" },
+                { "key": "fast food", "value": "Fast food" },
+                { "key": "follower", "value": "Takipçi" },
+                { "key": "goodwill", "value": "İyi niyet" },
+                { "key": "habit", "value": "Alışkanlık" },
+                { "key": "miss", "value": "Kaçırmak" },
+                { "key": "nickname", "value": "Lakap" },
+                { "key": "opera", "value": "Opera" },
+                { "key": "pop", "value": "Pop" },
+                { "key": "record", "value": "Kayıt" },
+                { "key": "sing", "value": "Şarkı söylemek" },
+                { "key": "train", "value": "tren" },
+                { "key": "training", "value": "Eğitim" },
+                { "key": "acting", "value": "Oyunculuk" },
+                { "key": "ambition", "value": "Hırs" },
+                { "key": "bank", "value": "Banka" },
+                { "key": "boarding pass", "value": "Biniş kartı" },
+                { "key": "continue", "value": "Devam etmek" },
+                { "key": "course", "value": "Kurs" },
+                { "key": "possession", "value": "Mülkiyet" },
+                { "key": "prepare", "value": "Hazırlamak" },
+                { "key": "properly", "value": "Doğru bir şekilde" },
+                { "key": "regularly", "value": "Düzenli olarak" },
+                { "key": "rise", "value": "Yükselme" },
+                { "key": "scared", "value": "Korkmuş" },
+                { "key": "stranger", "value": "Yabancı" },
+                { "key": "suitcase", "value": "Bavul" },
+                { "key": "water", "value": "Su" },
+                { "key": "yoga", "value": "Yoga" },
+                { "key": "interested", "value": "İlgili" },
+                { "key": "approximate", "value": "Yaklaşık" },
+                { "key": "community", "value": "Topluluk" },
+                { "key": "league", "value": "Lig" },
+                { "key": "popular", "value": "Popüler" },
+                { "key": "population", "value": "Nüfus" },
+                { "key": "rich", "value": "Zengin" },
+                { "key": "event", "value": "Olay" },
+                { "key": "global", "value": "Küresel" },
+                { "key": "individual", "value": "Birey" },
+                { "key": "international relations", "value": "Uluslararası ilişkiler" },
+                { "key": "money", "value": "Para" },
+                { "key": "understand", "value": "Anlamak" },
+                { "key": "waste", "value": "israf" },
+                { "key": "kitchen", "value": "Mutfak" },
+                { "key": "sort", "value": "Sınıflandırmak" },
+                { "key": "swimming", "value": "Yüzme" },
+                { "key": "cousin", "value": "Kuzen" },
+                { "key": "fly", "value": "Uçmak" },
+                { "key": "age", "value": "Yaş" },
+                { "key": "athlete", "value": "Sporcu" },
+                { "key": "diet", "value": "Diyet" },
+                { "key": "digital", "value": "Dijital" },
+                { "key": "fan", "value": "Hayran" },
+                { "key": "figure skater", "value": "Figür patenci" },
+                { "key": "fit", "value": "Forma girmek" },
+                { "key": "land", "value": "Arazi" },
+                { "key": "medal", "value": "Madalya" },
+                { "key": "star", "value": "Yıldız" },
+                { "key": "victim", "value": "Kurban" }
+            ]
+
+
+            document.getElementById("div").style.display = "inline";
+            document.getElementsByClassName("container")[1].style.display = "none";
+            randomKelime = Math.floor(Math.random() * data.length);
+            randomNo = Math.floor(Math.random() * 6);
+            kelime.innerHTML = data[randomKelime].key;
+            buton[randomNo].innerText = data[randomKelime].value;
+
+            for (let i = 0; i < buton.length; i++) {
+                if (i == randomNo) {
+                    continue;
+                }
+                butonRandomKelime = Math.floor(Math.random() * data2.length);
+                buton[i].innerText = data2[butonRandomKelime].value;
+            }
+            document.querySelector("span").innerText = data.length + yanlislar.length;
+            secenek();
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(131, 31, 31, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 230px;
+            /* position: relative; */
+
+        }
+
+        .unit-section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .unit-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+
+        }
+
+        .unit-buttons button {
+            background-color: #c8ff00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: medium;
+            box-shadow: 0 10px 20px rgba(3, 11, 118, 1);
+
+        }
+
+        .unit-buttons button:hover {
+            background-color: #0056b3;
+            background-color: black;
+            color: #c8ff00;
+        }
+        h2{
+            background-color:aqua;
+            width: 147px;
+            padding: 5px 13px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgb(11, 37, 234);
+            position: relative;
+
+        }
+        h4{
+            position: absolute;
+            top: 0;
+            margin-left: 150px;
+            background-color: #0011ff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        h4:hover{
+            background-color: white;
+            color: #0011ff;
+        }
+        #pop-up {
+        position: fixed; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        background-color: rgba(15, 217, 119, 0.92); 
+        width: 300px; 
+        padding: 20px; 
+        border-radius: 10px; 
+        color: rgb(171, 19, 19); 
+        text-align: center; 
+        display: flex;
+        justify-content: center;
+
+
+    }
+    .hatalar{
+        padding-left: 80px;
+    }
+    table{
+        border: 5px;
+        border-color: black;
+        border-collapse: collapse;
+    }
+    tr:nth-child(odd){
+background-color: rgba(217, 183, 15, 0.85);
+width: 100%;
+    }
+    </style>
+</head>
+
+<body style="background-color: rgba(131, 31, 31, 0.9);">
+
+    <div class="container">
+        <div class="unit-section">
+            <h2>A1 SEVİYESİ</h2>
+            <h4 onclick="skorGor(1)">Skorlarını Gör</h4>
+            <div class="unit-buttons">
+                <button onclick="unite(1)">Ünite 1</button>
+                <button onclick="unite(2)">Ünite 2</button>
+                <button onclick="unite(3)">Ünite 3</button>
+                <button onclick="unite(4)">Ünite 4</button>
+                <button onclick="unite(5)">Ünite 5</button>
+                <button onclick="unite(6)">Ünite 6</button>
+                <button onclick="unite(7)">Ünite 7</button>
+                <button onclick="unite(8)">Ünite 8</button>
+                <button onclick="unite(9)">Ünite 9</button>
+                <button onclick="unite(10)">Ünite 10</button>
+                <button onclick="unite(11)">Ünite 11</button>
+                <button onclick="unite(12)">Ünite 12</button>
+                <button onclick="unite(13)">Ünite 13</button>
+                <button onclick="unite(14)">Ünite 14</button>
+            </div>
+        </div>
+
+        <div class="unit-section">
+            <h2>A2 SEVİYESİ</h2>
+            <h4  onclick="skorGor(2)">Skorlarını Gör</h4>
+
+            <div class="unit-buttons">
+                   <button onclick="unite2(1)">Ünite 1</button>
+                <button onclick="unite2(2)">Ünite 2</button>
+                <button onclick="unite2(3)">Ünite 3</button>
+                <button onclick="unite2(4)">Ünite 4</button>
+                <button onclick="unite2(5)">Ünite 5</button>
+                <button onclick="unite2(6)">Ünite 6</button>
+                <button onclick="unite2(7)">Ünite 7</button>
+                <button onclick="unite2(8)">Ünite 8</button>
+                <button onclick="unite2(9)">Ünite 9</button>
+                <button onclick="unite2(10)">Ünite 10</button>
+                <button onclick="unite2(11)">Ünite 11</button>
+                <button onclick="unite2(12)">Ünite 12</button>
+                <button onclick="unite2(13)">Ünite 13</button>
+                <button onclick="unite2(14)">Ünite 14</button>
+            </div>
+        </div>
+
+        <div class="unit-section">
+            <h2>B1 SEVİYESİ</h2>
+            <h4  onclick="skorGor(3)">Skorlarını Gör</h4>
+
+            <div class="unit-buttons">
+                   <button onclick="unite3(1)">Ünite 1</button>
+                <button onclick="unite3(2)">Ünite 2</button>
+                <button onclick="unite3(3)">Ünite 3</button>
+                <button onclick="unite3(4)">Ünite 4</button>
+                <button onclick="unite3(5)">Ünite 5</button>
+                <button onclick="unite3(6)">Ünite 6</button>
+                <button onclick="unite3(7)">Ünite 7</button>
+                <button onclick="unite3(8)">Ünite 8</button>
+                <button onclick="unite3(9)">Ünite 9</button>
+                <button onclick="unite3(10)">Ünite 10</button>
+                <button onclick="unite3(11)">Ünite 11</button>
+                <button onclick="unite3(12)">Ünite 12</button>
+                <button onclick="unite3(13)">Ünite 13</button>
+                <button onclick="unite3(14)">Ünite 14</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pop-up">
+        <span style="
+            background-color: red;
+            color: #f8f9fa;
+            padding: 10px;
+            border-radius: 50%;
+            padding-top: 5px;
+            position: absolute;
+            font-size: 20px;
+            top: 0;
+            right: 0;
+            " onclick="cikis()">x</span>
+    
+
+<table>
+    <tr>
+        <th colspan="2" style="
+            padding: 10px;
+            background-color: rgba(16, 40, 161, 0.85);
+            color: black;
+            ">En İyi Skorlar</th>
+    </tr>
+    <tr>
+        <td>Ünite 1</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 2</td>
+        <td class="hatalar">Oynanmadı</td>
+    </tr>
+    <tr>
+        <td>Ünite 3</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 4</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 5</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 6</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 7</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 8</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 9</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 10</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 11</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 12</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 13</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+    <tr>
+        <td>Ünite 14</td>
+        <td class="hatalar">45 Hata</td>
+    </tr>
+
+
+</table>
+
+    </div>
+
+    <script>
+         document.getElementById("pop-up").style.display="none";
+        function cikis() {
+            document.getElementById("pop-up").style.display="none";
+        }
+        let hatalar=document.getElementsByClassName("hatalar");
+        let index;
+        let skorlar=[];
+        for (let i = 1; i <= 14; i++) {
+            skorlar=[];
+            for (let a = 0; a < localStorage.length; a++) {
+                if (Object.keys(localStorage)[a].includes("a2Unite"+i)) {
+                    skorlar.push(Number(Object.values(localStorage)[a]));
+                }
+            }
+            if (skorlar.length==0) {
+                hatalar[i-1].innerHTML="Oynanmadı";
+            }
+
+            else{
+                hatalar[i-1].innerHTML=Math.min(...skorlar)+" Hata";
+                
+            }
+        }
+
+
+        function unite(no) { 
+            if (no=1) {
+              window.location.href = "a1unite"+no+".html";
+            }
+        }
+        function unite2(no) {
+            window.location.href = "a2Unite"+no+".html";
+        }
+        // function unite3(no) {
+        //     window.location.href = "unite"+no+".html";
+        // }
+        function skorGor(no) {
+            if (no==2) {
+                document.getElementById("pop-up").style.display="flex";
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>
